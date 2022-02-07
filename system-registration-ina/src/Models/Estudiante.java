@@ -1,15 +1,15 @@
 package Models;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
+import java.util.List;
 
 /**
  *
  * @author royden
  */
-public class Estudiante {
-    
+public class Estudiante extends Persona{
+    byte gradoActual;
+    boolean repiteAnio;
+    boolean reqAdecuacion;
+    boolean beca;
+    List<Curso>
 }
