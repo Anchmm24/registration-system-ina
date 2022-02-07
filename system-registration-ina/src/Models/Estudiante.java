@@ -12,6 +12,7 @@ public class Estudiante extends Persona{
     boolean adecuacion;
     boolean beca;
     List<Curso> cursos;
+    
 
     public Estudiante() {
     }
