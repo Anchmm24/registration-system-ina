@@ -3,9 +3,11 @@ import Models.Curso;
 import Models.Docente;
 import Models.Estudiante;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
+import static jdk.nashorn.internal.objects.NativeString.toUpperCase;
 
 public class SystemRegistrationIna {
     static String password = "cheeseburger09";
@@ -188,6 +190,7 @@ public class SystemRegistrationIna {
                 //Se redirige al menú de gestiones referentes a los profesores.
                 System.out.println("ADMINISTRACIÓN PROFESORES");
                 opc2 = administracionClases();
+                gestionDocentes(opc2);
                 break;
             case 3: 
                 //Se redirige al menú de gestiones referentes a los estudiantes.
@@ -308,5 +311,125 @@ public class SystemRegistrationIna {
         
         cursos.add(curso);
         System.out.println("\n\t[ Curso agregado con éxito ]");
+    }
+    
+    static void gestionDocentes(byte opc2){
+        switch(opc2){
+            case 1: 
+                agregarDocente();
+                break;
+            case 2: 
+                break;
+            case 3: 
+                
+                break;
+            case 4: 
+                break;
+            case 5: 
+            default:
+                break;                
+        } 
+    }
+    
+    static void agregarDocente(){  
+        boolean error=false;
+        ArrayList<Curso> cursosDocente = new ArrayList<>();
+        Curso newMateria = new Curso();
+        
+        String nombre, apellidos, cedula, direccion, correo, gradoAcad;
+        boolean colegiado = false;
+        boolean propiedad = false;
+        byte edad;
+        Date fechaInicio;
+        
+        do{
+            error = false;
+            nombre="";
+            apellidos="";
+            cedula="";
+            direccion="";
+            correo="";
+            edad=0;
+            gradoAcad = "";
+            fechaInicio = null;
+            
+            try{
+                System.out.println("Nombre:");
+                nombre = scan.nextLine();
+                System.out.println("Apellidos:");
+                apellidos = scan.nextLine();
+                System.out.println("Cédula:");
+                cedula = scan.nextLine(); // validar que sean diez y números
+                System.out.println("Dirección:");
+                direccion = scan.nextLine();
+                System.out.println("Correo:");
+                correo = scan.nextLine();
+                System.out.println("Edad:");
+                edad = scan.nextByte(); //validar que sea una edad aceptable
+                System.out.println("Seleccione la materia que imparte: ");
+                newMateria = imprimirCursos();
+                cursosDocente.add(newMateria); //Se agrega la materia al arraylist local del objeto.
+                System.out.println("Grado académico: ");
+                gradoAcad= scan.nextLine();
+                System.out.println("¿Es colegiado? (s/n)");
+                colegiado = validarSN(); //Se obtiene verdadero o falso de acuerdo con la respuesta del usuario.                
+                System.out.println("¿Está en propiedad? (s/n)");
+                propiedad= validarSN();
+                System.out.println("Fecha de inicio en la institución (DD/MM/YYYY)");
+                String fecha = scan.nextLine();
+                //Se necesita formatear la fecha y pasarla a formato Date.
+                
+            }catch(Exception e){
+                System.out.println(" [ Error ] - ingrese datos válidos ");
+                error=true;
+            }
+            
+        }while(error==true);
+        
+        Docente newdocente = new Docente(cursosDocente, gradoAcad, colegiado, propiedad, fechaInicio);
+    }
+    
+    //Método que valida las respuestas en formato S/N
+    static boolean validarSN(){
+        boolean error = false;
+        
+        do{
+            String word= scan.nextLine();
+            word = toUpperCase(word); //Se pasa la respuesta a mayúsculas.
+            if(!"S".equals(word) && !"N".equals(word)){ 
+                System.out.println("[Error] - Ingrese datos correctos.");
+                error=true;
+            }else{
+                if("S".equals(word)){
+                    return true;
+                }                   
+            }
+        }while(error);
+        
+        return false;
+    }
+    
+    //Método que imprime los docentes.
+    static void ImprimirDocentes(){
+        System.out.println("DOCENTES REGISTRADOS");
+        
+        if(!docentes.isEmpty()){
+            for(int i=0;i<docentes.size();i++){{
+                System.out.println("Nombre: "+docentes.get(i).getNombre());
+                System.out.println("Apellidos "+docentes.get(i).getApellidos());
+                System.out.println("Cédula "+docentes.get(i).getCedula());
+                System.out.println("Dirección "+docentes.get(i).getDireccion());
+                System.out.println("Correo: "+docentes.get(i).getCorreo());
+                System.out.println("Edad: "+docentes.get(i).getEdad());
+                //Se imprime la lista de cursos que imparte
+                System.out.println("Colegiado: "+docentes.get(i).isColegiado());
+                System.out.println("Propiedad: "+docentes.get(i).isPropiedad());
+                System.out.println("Fecha de inicio en la institución: "+docentes.get(i).getInicioInstitucion());
+                System.out.println("\n");
+                }
+            }
+        }else{
+            System.out.println("LISTA VACÍA");
+        }
     }
 }

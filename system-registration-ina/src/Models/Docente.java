@@ -9,14 +9,25 @@ import java.util.Date;
  */
 public class Docente extends Persona{
 
+    public Docente() {
+    }
+
     private ArrayList<Curso> materiasImparte;
     private String gradoAcademico;
     private boolean colegiado;
     private boolean propiedad;
     private Date inicioInstitucion;
+
+    public Docente(ArrayList<Curso> materiasImparte, String gradoAcademico, boolean colegiado, boolean propiedad, Date inicioInstitucion) {
+        this.materiasImparte = materiasImparte;
+        this.gradoAcademico = gradoAcademico;
+        this.colegiado = colegiado;
+        this.propiedad = propiedad;
+        this.inicioInstitucion = inicioInstitucion;
+    }
     
     //Constructor con parámetros
-    public Docente(ArrayList<Curso> materiasImparte, String gradoAcademico, boolean colegiado, boolean propiedad, Date inicioInstitucion, String nombre, String apellidos, String cedula, String direccion, String correo, String edad) {
+    public Docente(ArrayList<Curso> materiasImparte, String gradoAcademico, boolean colegiado, boolean propiedad, Date inicioInstitucion, String nombre, String apellidos, String cedula, String direccion, String correo, byte edad) {
         super(nombre, apellidos, cedula, direccion, correo, edad);
         this.materiasImparte = materiasImparte;
         this.gradoAcademico = gradoAcademico;

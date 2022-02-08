@@ -12,14 +12,14 @@ public class Persona {
     private String cedula;
     private String direccion;
     private String correo;
-    private String edad;
+    private byte edad;
 
     //Constructor con parámetros
     public Persona() {
     }
     
     //Constructor con parámetros
-    public Persona(String nombre, String apellidos, String cedula, String direccion, String correo, String edad) {
+    public Persona(String nombre, String apellidos, String cedula, String direccion, String correo, byte edad) {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.cedula = cedula;
@@ -49,7 +49,7 @@ public class Persona {
         return correo;
     }
 
-    public String getEdad() {
+    public byte getEdad() {
         return edad;
     }
 
@@ -74,7 +74,7 @@ public class Persona {
         this.correo = correo;
     }
 
-    public void setEdad(String edad) {
+    public void setEdad(byte edad) {
         this.edad = edad;
     }
     

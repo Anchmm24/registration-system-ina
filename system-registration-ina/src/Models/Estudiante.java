@@ -7,6 +7,24 @@ import java.util.List;
  * @author royden
  */
 public class Estudiante extends Persona{
+
+    public Estudiante(byte gradoActual, boolean repiteAnio, boolean adecuacion, boolean beca, List<Curso> cursos) {
+        this.gradoActual = gradoActual;
+        this.repiteAnio = repiteAnio;
+        this.adecuacion = adecuacion;
+        this.beca = beca;
+        this.cursos = cursos;
+    }
+
+    public Estudiante(byte gradoActual, boolean repiteAnio, boolean adecuacion, boolean beca, List<Curso> cursos, String nombre, String apellidos, String cedula, String direccion, String correo, byte edad) {
+        super(nombre, apellidos, cedula, direccion, correo, edad);
+        this.gradoActual = gradoActual;
+        this.repiteAnio = repiteAnio;
+        this.adecuacion = adecuacion;
+        this.beca = beca;
+        this.cursos = cursos;
+    }
+    
     byte gradoActual;
     boolean repiteAnio;
     boolean adecuacion;
@@ -15,14 +33,6 @@ public class Estudiante extends Persona{
     
 
     public Estudiante() {
-    }
-
-    public Estudiante(byte gradoActual, boolean repiteAnio, boolean reqAdecuacion, boolean beca, List<Curso> cursos) {
-        this.gradoActual = gradoActual;
-        this.repiteAnio = repiteAnio;
-        this.adecuacion = reqAdecuacion;
-        this.beca = beca;
-        this.cursos = cursos;
     }
 
     public byte getGradoActual() {
