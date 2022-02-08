@@ -43,6 +43,7 @@ public class SystemRegistrationIna {
         boolean error = false;
         
         do{
+            error = false; // Se inicializa al entrar al ciclo, sino entra en loop infinito
             System.out.print("\n\t[ Bienvenidx al sistema de matrícula ]"
                     + "\n\t[1] - Usuario"
                     + "\n\t[2] - Administrador"
@@ -133,6 +134,7 @@ public class SystemRegistrationIna {
         boolean error = false;
         
         do{
+            error = false; // Se inicializa al entrar al ciclo, sino entra en loop infinito
             System.out.print("\n\t[ GESTIONES DE ADMINISTRADOR ]"
                     + "\n\t[1] - Administración cursos"
                     + "\n\t[2] - Administración profesores"
@@ -159,7 +161,7 @@ public class SystemRegistrationIna {
     //Método que contiene un switch. Se realizan acciones de acuerdo con la selección del administardor.
     static void gestionesAdministrador(byte opc){
         
-        byte opc2;
+        byte opc2=0;
         
         switch(opc){
             case 1: 
