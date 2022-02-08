@@ -254,6 +254,8 @@ public class SystemRegistrationIna {
     static void agregarCurso(){
         Curso curso = new Curso();
         byte num = 0;
+        char seguir = 's';
+        
         System.out.print("\n\tNombre del curso: ");
         curso.setNombre(scan.nextLine());
         
@@ -304,7 +306,29 @@ public class SystemRegistrationIna {
             }
         } while(num == 0);        
         
+        curso.setDocenteEncargado(docentes.get(num));
         
+        do{
+            
+            // Arreglar la entrada de la hora 
+            do {
+                System.out.print("\tFecha que finaliza el contraro (dd-mm-aaaa): ");
+
+                fecha = scan.nextLine();
+                try {
+                    finContrato = formato.parse(fecha);
+                    if (!formato.format(finContrato).equals(fecha)) {
+                        throw new Exception();
+                    }
+                } catch (Exception ex) {
+                    System.out.println("\n\t[Error] - Formato no válido, formato requerido: dd-mm-aaaa");
+                }
+                ok = finContrato != null && formato.format(finContrato).equals(fecha);
+            } while (!ok);
+            
+            System.out.print("\n\tDesea agregar otro horario? (S/N): ");
+            seguir = scan.nextLine().toLowerCase().charAt(0);
+        } while(seguir == 's');
         
         cursos.add(curso);
         System.out.println("\n\t[ Curso agregado con éxito ]");
