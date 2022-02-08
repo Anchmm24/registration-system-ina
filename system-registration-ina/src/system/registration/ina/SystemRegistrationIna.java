@@ -21,7 +21,7 @@ public class SystemRegistrationIna {
                     
                     break;
                 case 2:
-                    boolean entra = validacionAdmin(password);
+                    boolean entra = validacionAdmin();
                     if(entra){
                         opc = administradorMenu();
                         gestionesAdministrador(opc);
@@ -68,21 +68,29 @@ public class SystemRegistrationIna {
     //Menú con las gestiones disponibles para el usuario.
     static byte usuarioMenu(){
         byte opcion = 0;
-        System.out.print("\n\t[ GESTIONES DE USUARIO ]"
-                + "\n\t[1] - Lista de cursos"
-                + "\n\t[2] - Lista de profesores"
-                + "\n\t[3] - Lista de estudiantes"
-                + "\n\t[4] - Matrícula"
-                + "\n\n\tElija una opción: ");
-        try {
-            opcion = scan.nextByte();
-            if ((opcion < 1) && (opcion > 4)) {
-                opcion = 0;
-                System.out.print("\n\tIngrese una opción válida entre 1 y 4");
+        boolean error = false;
+        
+        do{
+            error = false;
+            System.out.print("\n\t[ GESTIONES DE USUARIO ]"
+                    + "\n\t[1] - Lista de cursos"
+                    + "\n\t[2] - Lista de profesores"
+                    + "\n\t[3] - Lista de estudiantes"
+                    + "\n\t[4] - Matrícula"
+                    + "\n\n\tElija una opción: ");
+            try {
+                opcion = scan.nextByte();
+                if ((opcion < 1) && (opcion > 4)) {
+                    opcion = 0;
+                    System.out.print("\n\tIngrese una opción válida entre 1 y 4");
+                    error = true;
+                }
+            } catch (InputMismatchException ex) {
+                error = true;
+                System.out.println("\n\t[ Error ] - Ingrese un número válido");
             }
-        } catch (InputMismatchException ex) {
-            System.out.println("\n\t[ Error ] - Ingrese un número válido");
-        }
+        }while(error);
+        
         return opcion;
     }
     
@@ -105,17 +113,14 @@ public class SystemRegistrationIna {
     }
     
     //Método que valida la contraseña ingresada para administrador. 
-    static boolean validacionAdmin(String password){
-        Scanner sc = new Scanner(System.in);
+    static boolean validacionAdmin(){
         byte intentos = 3;
-        boolean valido = false;
         
         do{
             System.out.println("\nIngrese la contraseña:");
-            String contraIngresada = sc.nextLine();
+            String contraIngresada = scan.nextLine();
             if(contraIngresada == null ? password == null : contraIngresada.equals(password)){
-                valido = true;
-                return valido;
+                return true;
             }else{
                 intentos--;
                 System.out.println("\nCONTRASEÑA INCORRECTA. Intentos restantes: "+ intentos);
@@ -123,7 +128,7 @@ public class SystemRegistrationIna {
         }while(intentos!=0);
         
         
-        return valido;
+        return false;
         
     }
     
