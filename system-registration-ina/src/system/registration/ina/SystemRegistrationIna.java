@@ -10,14 +10,15 @@ import java.util.Scanner;
 public class SystemRegistrationIna {
     static String password = "cheeseburger09";
     static Scanner scan = new Scanner(System.in);
+    static List<Docente> docentes = new ArrayList<>();
+    static List<Curso> cursos = new ArrayList<>();
+    static List<Estudiante> estudiantes = new ArrayList<>();
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         byte tipoUsuario, opc;
-        List<Docente> docentes = new ArrayList<>();
-        List<Curso> cursos = new ArrayList<>();
-        List<Estudiante> estudiantes = new ArrayList<>();
+        
         
         do{
             tipoUsuario = menu();
