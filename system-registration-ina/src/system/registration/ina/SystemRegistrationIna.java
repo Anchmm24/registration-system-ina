@@ -178,6 +178,7 @@ public class SystemRegistrationIna {
                 //Se redirige al menú de gestiones referentes a los profesores.
                 System.out.println("ADMINISTRACIÓN PROFESORES");
                 opc2 = administracionClases();
+                gestionesProfes(opc);
                 break;
             case 3: 
                 //Se redirige al menú de gestiones referentes a los estudiantes.
@@ -219,5 +220,5 @@ public class SystemRegistrationIna {
         return opcion;
     }
     
-  
+    
 }
