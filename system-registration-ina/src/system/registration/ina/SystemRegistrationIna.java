@@ -229,26 +229,23 @@ public class SystemRegistrationIna {
         return opcion;
     }
     
+    /**
+     * Redirige a la acción seleccionada por el usuario
+     * @param opc acción a realizar por el usuario
+     */
     static void gestionCursos(byte opc){
         switch(opc){
             case 1: 
                 agregarCurso();
                 break;
             case 2: 
-                //Se redirige al menú de gestiones referentes a los profesores.
-                System.out.println("ADMINISTRACIÓN PROFESORES");
-                opc2 = administracionClases();
                 break;
             case 3: 
-                //Se redirige al menú de gestiones referentes a los estudiantes.
-                System.out.println("ADMINISTRACIÓN ESTUDIANTES");
-                opc2 = administracionClases();
+                
                 break;
             case 4: 
-                //Se muestran cursos de un docente específico
                 break;
             case 5: 
-                //Se muestran cursos de un estudiante específico
             default:
                 break;                
         }        
@@ -290,9 +287,26 @@ public class SystemRegistrationIna {
         curso.setCreditos(num);
         num = 0;
         
-        s1.setCapVistos(num);
+        do{
+            imprimirDocentes();
+            System.out.print("\n\tNúmero del docente que impartirá el curso: ");
+            try {
+                num = scan.nextByte();
+                if(num == 0)
+                    System.out.println("\n\t[ Error ] - Ingrese un número mayor a 0");
+                else if(num > docentes.size()){
+                    System.out.println("\n\t[ Error ] - Elija un número válido");
+                    num = 0;
+                }
+            } catch (InputMismatchException ex) {
+                System.out.println("\n\t[ Error ] - Ingrese un número válido");
+                scan.nextLine();
+            }
+        } while(num == 0);        
         
-        cur.add(s1);
-        System.out.println("\n\t[ Serie agregada con éxito ]");
+        
+        
+        cursos.add(curso);
+        System.out.println("\n\t[ Curso agregado con éxito ]");
     }
 }
