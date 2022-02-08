@@ -1,8 +1,5 @@
 package Models;
 
-import java.util.Date;
-import java.util.List;
-
 /**
  * Clase para manejar los cursos de la escuela
  * 
@@ -13,7 +10,6 @@ public class Curso {
     byte cupoMax;
     byte creditos;
     Docente docenteEncargado;
-    List<Date> horarios;
 
     /**
      * Constructor vacio
@@ -27,14 +23,12 @@ public class Curso {
      * @param cupoMax capacidad máxima de estudiantes
      * @param creditos créditos que otorga la asignatura
      * @param docenteEncargado profesor que imparte el curso
-     * @param horarios lista de los horarios disponibles para el curso
      */
-    public Curso(String nombre, byte cupoMax, byte creditos, Docente docenteEncargado, List<Date> horarios) {
+    public Curso(String nombre, byte cupoMax, byte creditos, Docente docenteEncargado) {
         this.nombre = nombre;
         this.cupoMax = cupoMax;
         this.creditos = creditos;
         this.docenteEncargado = docenteEncargado;
-        this.horarios = horarios;
     }
 
     /**
@@ -100,20 +94,19 @@ public class Curso {
     public void setDocenteEncargado(Docente docenteEncargado) {
         this.docenteEncargado = docenteEncargado;
     }
-
-    /**
-     * 
-     * @return {@code List<Date>} con los horarios disponibles del curso
-     */
-    public List<Date> getHorarios() {
-        return horarios;
-    }
-
-    /**
-     * 
-     * @param horarios lista de horarios que el usuario puede tomar
-     */
-    public void setHorarios(List<Date> horarios) {
-        this.horarios = horarios;
+    
+    @Override
+    public String toString(){
+        String nombreDocente;
+        Docente docente = getDocenteEncargado();
+        if(docente != null)
+            nombreDocente = docente.getNombre() + " " + docente.getApellidos();
+        else
+            nombreDocente = "NO hay docente asignado";
+        
+        return ("\tNombre: " + getNombre()
+                + "\n\tCupos máximos: " + getCupoMax()
+                + "\n\tCréditos: " +getCreditos()
+                + "\n\tDocente a cargo: " + nombreDocente);
     }
 }
