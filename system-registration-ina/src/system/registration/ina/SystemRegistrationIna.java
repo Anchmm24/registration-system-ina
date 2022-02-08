@@ -1,15 +1,24 @@
 package system.registration.ina;
+import Models.Curso;
+import Models.Docente;
+import Models.Estudiante;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class SystemRegistrationIna {
     static String password = "cheeseburger09";
     static Scanner scan = new Scanner(System.in);
+    static List<Docente> docentes = new ArrayList<>();
+    static List<Curso> cursos = new ArrayList<>();
+    static List<Estudiante> estudiantes = new ArrayList<>();
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         byte tipoUsuario, opc;
+        
         
         do{
             tipoUsuario = menu();
@@ -173,12 +182,12 @@ public class SystemRegistrationIna {
                 //Se redirige al menú de gestiones referentes a los cursos.
                 System.out.println("ADMINISTRACIÓN CURSOS");
                 opc2 = administracionClases();
+                gestionCursos(opc2);
                 break;
             case 2: 
                 //Se redirige al menú de gestiones referentes a los profesores.
                 System.out.println("ADMINISTRACIÓN PROFESORES");
                 opc2 = administracionClases();
-                
                 break;
             case 3: 
                 //Se redirige al menú de gestiones referentes a los estudiantes.
@@ -220,5 +229,70 @@ public class SystemRegistrationIna {
         return opcion;
     }
     
+    static void gestionCursos(byte opc){
+        switch(opc){
+            case 1: 
+                agregarCurso();
+                break;
+            case 2: 
+                //Se redirige al menú de gestiones referentes a los profesores.
+                System.out.println("ADMINISTRACIÓN PROFESORES");
+                opc2 = administracionClases();
+                break;
+            case 3: 
+                //Se redirige al menú de gestiones referentes a los estudiantes.
+                System.out.println("ADMINISTRACIÓN ESTUDIANTES");
+                opc2 = administracionClases();
+                break;
+            case 4: 
+                //Se muestran cursos de un docente específico
+                break;
+            case 5: 
+                //Se muestran cursos de un estudiante específico
+            default:
+                break;                
+        }        
+    }
     
+    static void agregarCurso(){
+        Curso curso = new Curso();
+        byte num = 0;
+        System.out.print("\n\tNombre del curso: ");
+        curso.setNombre(scan.nextLine());
+        
+        do{
+            System.out.print("\tCantidad máxima de estudiantes: ");
+            try {
+                num = scan.nextByte();
+                if(num == 0)
+                    System.out.println("\n\t[ Error ] - Ingrese un número mayor a 0");
+            } catch (InputMismatchException ex) {
+                System.out.println("\n\t[ Error ] - Ingrese un número válido");
+                scan.nextLine();
+            }
+        }while (num == 0);
+        
+        curso.setCupoMax(num);
+        num = 0;
+        
+        do{
+            System.out.print("\tCréditos del curso: ");
+            try {
+                num = scan.nextByte();
+                if(num == 0)
+                    System.out.println("\n\t[ Error ] - Ingrese un número mayor a 0");
+            } catch (InputMismatchException ex) {
+                System.out.println("\n\t[ Error ] - Ingrese un número válido");
+                scan.nextLine();
+            }
+        }while (num == 0);
+        
+        curso.setCreditos(num);
+        num = 0;
+        
+        s1.setCapVistos(num);
+        
+        cur.add(s1);
+        System.out.println("\n\t[ Serie agregada con éxito ]");
+    }
 }
