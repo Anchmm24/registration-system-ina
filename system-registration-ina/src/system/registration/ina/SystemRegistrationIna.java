@@ -191,6 +191,7 @@ public class SystemRegistrationIna {
         boolean error = false;
         
         do{
+            error = false; // Se inicializa al entrar al ciclo, sino entra en loop infinito
             System.out.print("\n\t[1] - Agregar"
                     + "\n\t[2] - Eliminar"
                     + "\n\t[3] - Editar"

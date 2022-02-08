@@ -9,14 +9,14 @@ import java.util.Date;
  */
 public class Docente extends Persona{
 
-    private ArrayList<String> materiasImparte;
+    private ArrayList<Curso> materiasImparte;
     private String gradoAcademico;
     private boolean colegiado;
     private boolean propiedad;
     private Date inicioInstitucion;
     
     //Constructor con parámetros
-    public Docente(ArrayList<String> materiasImparte, String gradoAcademico, boolean colegiado, boolean propiedad, Date inicioInstitucion, String nombre, String apellidos, String cedula, String direccion, String correo, String edad) {
+    public Docente(ArrayList<Curso> materiasImparte, String gradoAcademico, boolean colegiado, boolean propiedad, Date inicioInstitucion, String nombre, String apellidos, String cedula, String direccion, String correo, String edad) {
         super(nombre, apellidos, cedula, direccion, correo, edad);
         this.materiasImparte = materiasImparte;
         this.gradoAcademico = gradoAcademico;
@@ -26,7 +26,7 @@ public class Docente extends Persona{
     }
     
     //Getters
-    public ArrayList<String> getMateriasImparte() {
+    public ArrayList<Curso> getMateriasImparte() {
         return materiasImparte;
     }
 
@@ -47,7 +47,7 @@ public class Docente extends Persona{
     }
 
     //Setters
-    public void setMateriasImparte(ArrayList<String> materiasImparte) {
+    public void setMateriasImparte(ArrayList<Curso> materiasImparte) {
         this.materiasImparte = materiasImparte;
     }
 
