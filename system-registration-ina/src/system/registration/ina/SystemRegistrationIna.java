@@ -263,14 +263,14 @@ public class SystemRegistrationIna {
 
     static void agregarCurso() {
         Curso curso = new Curso();
-        byte num = 0;
+        short num = 0;
         System.out.print("\n\tNombre del curso: ");
         curso.setNombre(scan.nextLine());
 
         do {
             System.out.print("\tCantidad máxima de estudiantes: ");
             try {
-                num = scan.nextByte();
+                num = scan.nextShort();
                 if (num == 0) {
                     System.out.println("\n\t[ Error ] - Ingrese un número mayor a 0");
                 }
@@ -296,16 +296,17 @@ public class SystemRegistrationIna {
             }
         } while (num == 0);
 
-        curso.setCreditos(num);
+        curso.setCreditos((byte)num);
         num = 0;
 
         do {
             imprimirDocentes();
             System.out.print("\n\tNúmero del docente que impartirá el curso: ");
             try {
-                num = scan.nextByte();
-                if (num == 0) {
+                num = scan.nextShort();
+                if (num < 1) {
                     System.out.println("\n\t[ Error ] - Ingrese un número mayor a 0");
+                    num = 0;
                 } else if (num > docentes.size()) {
                     System.out.println("\n\t[ Error ] - Elija un número válido");
                     num = 0;
@@ -352,7 +353,7 @@ public class SystemRegistrationIna {
         do {
             System.out.print("\tCantidad máxima de estudiantes: ");
             try {
-                num = scan.nextByte();
+                num = scan.nextShort();
                 if (num == 0) {
                     System.out.println("\n\t[ Error ] - Ingrese un número mayor a 0");
                 }
@@ -362,7 +363,7 @@ public class SystemRegistrationIna {
             }
         } while (num == 0);
 
-        curso.setCupoMax((byte)num);
+        curso.setCupoMax(num);
         num = 0;
 
         do {

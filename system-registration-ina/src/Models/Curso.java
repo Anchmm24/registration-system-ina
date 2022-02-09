@@ -7,7 +7,7 @@ package Models;
  */
 public class Curso {
     String nombre;
-    byte cupoMax;
+    short cupoMax;
     byte creditos;
     Docente docenteEncargado;
 
@@ -51,7 +51,7 @@ public class Curso {
      * 
      * @return capacidad máxima de estudiantes
      */
-    public byte getCupoMax() {
+    public short getCupoMax() {
         return cupoMax;
     }
 
@@ -59,7 +59,7 @@ public class Curso {
      * 
      * @param cupoMax cantidad máxima de estudiantes que se pueden matricular en el curso
      */
-    public void setCupoMax(byte cupoMax) {
+    public void setCupoMax(short cupoMax) {
         this.cupoMax = cupoMax;
     }
 
