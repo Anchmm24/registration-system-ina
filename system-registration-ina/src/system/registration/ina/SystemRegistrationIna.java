@@ -271,8 +271,9 @@ public class SystemRegistrationIna {
             System.out.print("\tCantidad máxima de estudiantes: ");
             try {
                 num = scan.nextShort();
-                if (num == 0) {
+                if (num < 1) {
                     System.out.println("\n\t[ Error ] - Ingrese un número mayor a 0");
+                    num = 0;
                 }
             } catch (InputMismatchException ex) {
                 System.out.println("\n\t[ Error ] - Ingrese un número válido");
@@ -445,6 +446,103 @@ public class SystemRegistrationIna {
                 System.out.print("\n\t[" + (count++) + "]" + curso.toString());
             }
         }
+    }
+    
+    // Métodos para los estudiantes
+    
+    /**
+     * Redirige a la acción seleccionada por el usuario
+     *
+     * @param opc acción a realizar por el usuario
+     */
+    static void gestionEstudiantes(byte opc){
+        switch (opc) {
+            case 1:
+                agregarEstudiante();
+                break;
+            case 2:
+                eliminarEstudiante();
+                break;
+            case 3:
+                modificarEstudiante();
+                break;
+            case 4:
+                break;
+            default:
+                break;
+        }
+    }
+    
+    static void agregarEstudiante() {
+        Estudiante estud = new Estudiante();
+        short num = 0;
+        System.out.print("\n\tNombre: ");
+        estud.setNombre(scan.nextLine());
+        System.out.print("\tApellidos: : ");
+        estud.setApellidos(scan.nextLine());        
+        System.out.print("\tCédula: ");
+        estud.setCedula(validarCedula());        
+        System.out.print("\tDirección actual: ");
+        estud.setDireccion(scan.nextLine());        
+        System.out.print("\tCorreo electrónico: ");
+        estud.setCorreo(scan.nextLine());
+        
+        System.out.print("\tEdad: ");
+        do {            
+            try {
+                num = scan.nextByte();
+                if (num < 16 && num > 100) {
+                    System.out.println("\n\t[ Error ] - Ingrese un número entre 15 - 100");
+                    num = 0;
+                }
+            } catch (InputMismatchException ex) {
+                System.out.println("\n\t[ Error ] - Ingrese un número válido");
+                scan.nextLine();
+            }
+        } while (num == 0);
+
+        estud.setEdad((byte) num);
+        num = 0;
+
+        System.out.print("\tGrado actual: ");
+        do {            
+            try {
+                num = scan.nextByte();
+                if (num < 16 && num > 100) {
+                    System.out.println("\n\t[ Error ] - Ingrese un número entre 15 - 100");
+                    num = 0;
+                }
+            } catch (InputMismatchException ex) {
+                System.out.println("\n\t[ Error ] - Ingrese un número válido");
+                scan.nextLine();
+            }
+        } while (num == 0);
+
+        curso.setCreditos((byte)num);
+        num = 0;
+
+        do {
+            imprimirDocentes();
+            System.out.print("\n\tNúmero del docente que impartirá el curso: ");
+            try {
+                num = scan.nextShort();
+                if (num < 1) {
+                    System.out.println("\n\t[ Error ] - Ingrese un número mayor a 0");
+                    num = 0;
+                } else if (num > docentes.size()) {
+                    System.out.println("\n\t[ Error ] - Elija un número válido");
+                    num = 0;
+                }
+            } catch (InputMismatchException ex) {
+                System.out.println("\n\t[ Error ] - Ingrese un número válido");
+                scan.nextLine();
+            }
+        } while (num == 0);
+
+        curso.setDocenteEncargado(docentes.get(num - 1));
+
+        cursos.add(curso);
+        System.out.println("\n\t[ Curso agregado con éxito ]");
     }
 
     static void gestionDocentes(byte opc2) {
