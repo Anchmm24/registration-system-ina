@@ -336,7 +336,7 @@ public class SystemRegistrationIna {
         ArrayList<Curso> cursosDocente = new ArrayList<>();
         Curso newMateria = new Curso();
         
-        String nombre, apellidos, cedula, direccion, correo, gradoAcad;
+        String nombre, apellidos, direccion, cedula, correo, gradoAcad;
         boolean colegiado = false;
         boolean propiedad = false;
         byte edad;
@@ -359,7 +359,7 @@ public class SystemRegistrationIna {
                 System.out.println("Apellidos:");
                 apellidos = scan.nextLine();
                 System.out.println("Cédula:");
-                cedula = scan.nextLine(); // validar que sean diez y números
+                validarCedula();
                 System.out.println("Dirección:");
                 direccion = scan.nextLine();
                 System.out.println("Correo:");
@@ -407,6 +407,34 @@ public class SystemRegistrationIna {
         }while(error);
         
         return false;
+    }
+    
+    //Método que valida la cédula
+    static String validarCedula(){
+        
+        boolean error = false;
+        String cedula = "";
+        
+        do{
+            try{
+                cedula = scan.nextLine(); 
+                Integer.parseInt(cedula);
+                int digitos = cedula.length();
+
+                if(digitos !=10 ){
+                    System.out.println("[ERROR] - Ingrese la cédula en formato de 10 dígitos.");
+                    error = true;
+                }
+
+            }catch(Exception e){
+                error = true;
+                System.out.println("[ERROR] - Ingrese sólo números.");
+            }
+        }while(error);
+        
+        
+        
+        return cedula;
     }
     
     //Método que imprime los docentes.
