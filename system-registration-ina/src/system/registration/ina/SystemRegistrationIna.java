@@ -476,6 +476,9 @@ public class SystemRegistrationIna {
     static void agregarEstudiante() {
         Estudiante estud = new Estudiante();
         short num = 0;
+        boolean seguir;
+        List<Curso> list = new ArrayList<>();
+        
         System.out.print("\n\tNombre: ");
         estud.setNombre(scan.nextLine());
         System.out.print("\tApellidos: : ");
@@ -487,11 +490,12 @@ public class SystemRegistrationIna {
         System.out.print("\tCorreo electrónico: ");
         estud.setCorreo(scan.nextLine());
         
-        System.out.print("\tEdad: ");
-        do {            
+        
+        do {
+            System.out.print("\tEdad: ");
             try {
                 num = scan.nextByte();
-                if (num < 16 && num > 100) {
+                if (num < 15 || num > 100) {
                     System.out.println("\n\t[ Error ] - Ingrese un número entre 15 - 100");
                     num = 0;
                 }
@@ -503,13 +507,13 @@ public class SystemRegistrationIna {
 
         estud.setEdad((byte) num);
         num = 0;
-
-        System.out.print("\tGrado actual: ");
-        do {            
+        
+        do {
+            System.out.print("\tGrado actual: ");
             try {
                 num = scan.nextByte();
-                if (num < 16 && num > 100) {
-                    System.out.println("\n\t[ Error ] - Ingrese un número entre 15 - 100");
+                if (num < 1 && num > 10) {
+                    System.out.println("\n\t[ Error ] - Ingrese un número entre 1 - 10");
                     num = 0;
                 }
             } catch (InputMismatchException ex) {
@@ -518,31 +522,58 @@ public class SystemRegistrationIna {
             }
         } while (num == 0);
 
-        curso.setCreditos((byte)num);
+        estud.setGradoActual((byte)num);
         num = 0;
+        
+        System.out.print("\tRequiere adecuación? (S/N): ");
+        estud.setAdecuacion(validarSN());
+        
+        System.out.print("\tRequiere solicitar beca? (S/N): ");
+        estud.setBeca(validarSN());
 
-        do {
-            imprimirDocentes();
-            System.out.print("\n\tNúmero del docente que impartirá el curso: ");
-            try {
-                num = scan.nextShort();
-                if (num < 1) {
-                    System.out.println("\n\t[ Error ] - Ingrese un número mayor a 0");
-                    num = 0;
-                } else if (num > docentes.size()) {
-                    System.out.println("\n\t[ Error ] - Elija un número válido");
-                    num = 0;
-                }
-            } catch (InputMismatchException ex) {
-                System.out.println("\n\t[ Error ] - Ingrese un número válido");
-                scan.nextLine();
+        System.out.print("\n\tDesea añadir cursos al estudiante? (S/N): ");
+        seguir = validarSN();
+        while (seguir) {            
+            imprimirCursos();
+            do{
+                System.out.print("\n\tNúmero del curso a añadir: ");
+                try {
+                    num = scan.nextShort();
+                    if (num < 1) {
+                        System.out.println("\n\t[ Error ] - Ingrese un número mayor a 0");
+                        num = 0;
+                    } else if (num > cursos.size()) {
+                        System.out.println("\n\t[ Error ] - Elija un número válido");
+                        num = 0;
+                    }
+                } catch (InputMismatchException ex) {
+                    System.out.println("\n\t[ Error ] - Ingrese un número válido");
+                    scan.nextLine();
+                }   
+            }while(num == 0);
+            list.add(cursos.get(num-1));
+            
+            System.out.print("\n\tDesea añadir otro curso? (S/N): ");
+            seguir = validarSN();
+        }
+        estud.setCursos(list);
+        estudiantes.add(estud);
+        System.out.println("\n\t[ Estudiante agregado con éxito ]");
+    }
+    
+    static void ordenarEstudiantes(){
+        Comparator<Estudiante> orderByName = (p1, p2) -> p1.getApellidos().compareTo(p2.getApellidos());
+        Collections.sort(estudiantes , orderByName);
+    }
+    
+    static void imprimirEstudiantes() {
+        ordenarEstudiantes();
+        short count = 1;
+        if (!estudiantes.isEmpty()) {
+            for (Estudiante estudiante : estudiantes) {
+                System.out.print("\n\t[" + (count++) + "]" + estudiante.toString());
             }
-        } while (num == 0);
-
-        curso.setDocenteEncargado(docentes.get(num - 1));
-
-        cursos.add(curso);
-        System.out.println("\n\t[ Curso agregado con éxito ]");
+        }
     }
 
     static void gestionDocentes(byte opc2) {
