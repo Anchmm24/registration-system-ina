@@ -572,42 +572,26 @@ public class SystemRegistrationIna {
     //Método que imprime los docentes.
     static void imprimirDocentes() {
         System.out.println("DOCENTES REGISTRADOS");
-
+        int l=0;
         if (!docentes.isEmpty()) {
-            docentes.stream().map((docente) -> {
-                System.out.println("Nombre: " + docente.getNombre());
-                return docente;
-            }).map((docente) -> {
-                System.out.println("Apellidos " + docente.getApellidos());
-                return docente;
-            }).map((docente) -> {
-                System.out.println("Cédula " + docente.getCedula());
-                return docente;
-            }).map((docente) -> {
-                System.out.println("Dirección " + docente.getDireccion());
-                return docente;
-            }).map((docente) -> {
-                System.out.println("Correo: " + docente.getCorreo());
-                return docente;
-            }).map((docente) -> {
-                System.out.println("Edad: " + docente.getEdad());
-                return docente;
-            }).map((docente) -> {
-                //Se imprime la lista de cursos que imparte
-                System.out.println("Colegiado: " + docente.isColegiado());
-                return docente;
-            }).map((docente) -> {
-                System.out.println("Propiedad: " + docente.isPropiedad());
-                return docente;
-            }).map((docente) -> {
-                System.out.println("Fecha de inicio en la institución: " + docente.getInicioInstitucion());
-                return docente;
-            }).forEach((_item) -> {
-                System.out.println("\n");
-            });
-        } else {
+            for(Docente doc :docentes){
+                l++;
+                System.out.println("["+(l+1)+"] "+"Nombre: " + doc.getNombre());
+                System.out.println("Apellidos " + doc.getApellidos());
+                System.out.println("Cédula " + doc.getCedula());
+                System.out.println("Dirección " + doc.getDireccion());
+                System.out.println("Correo: " + doc.getCorreo());
+                System.out.println("Edad: " + doc.getEdad());
+                System.out.println("Colegiado: " + doc.isColegiado());
+                System.out.println("Propiedad: " + doc.isPropiedad());
+                System.out.println("Fecha de inicio en la institución: " + doc.getInicioInstitucion() + "\n");
+                for(int i=0;i<cursos.size();i++){
+                    //Hacer que se impriman los cursos por docente específico
+                }
+            }
+        }else{
             System.out.println("LISTA VACÍA");
         }
-    }
-    //Hola
-}
+    }        
+        
+}      
