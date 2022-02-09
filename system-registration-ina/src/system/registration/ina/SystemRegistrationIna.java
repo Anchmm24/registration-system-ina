@@ -324,16 +324,16 @@ public class SystemRegistrationIna {
 
     static void modificarCurso() {
         Curso curso;
-        byte num = 0;
+        short num = 0;
 
         do {
             imprimirCursos();
             System.out.print("\n\tNúmero del curso a modificar: ");
             try {
-                num = scan.nextByte();
+                num = scan.nextShort();
                 if (num == 0) {
                     System.out.println("\n\t[ Error ] - Ingrese un número mayor a 0");
-                } else if (num > docentes.size()) {
+                } else if (num > docentes.size() || num < docentes.size()) {
                     System.out.println("\n\t[ Error ] - Elija un número válido");
                     num = 0;
                 }
@@ -362,7 +362,7 @@ public class SystemRegistrationIna {
             }
         } while (num == 0);
 
-        curso.setCupoMax(num);
+        curso.setCupoMax((byte)num);
         num = 0;
 
         do {
@@ -378,7 +378,7 @@ public class SystemRegistrationIna {
             }
         } while (num == 0);
 
-        curso.setCreditos(num);
+        curso.setCreditos((byte)num);
         num = 0;
 
         do {
@@ -431,9 +431,13 @@ public class SystemRegistrationIna {
         }
     }
 
-    static void imprimirCursos() {
+    static void ordenar(){
         Comparator<Curso> orderByName = (p1, p2) -> p1.getNombre().compareTo(p2.getNombre());
         Collections.sort(cursos, orderByName);
+    }
+    
+    static void imprimirCursos() {
+        ordenar();
         short count = 1;
         if (!cursos.isEmpty()) {
             for (Curso curso : cursos) {
