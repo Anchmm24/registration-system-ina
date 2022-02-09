@@ -431,13 +431,13 @@ public class SystemRegistrationIna {
         }
     }
 
-    static void ordenar(){
+    static void ordenarCursos(){
         Comparator<Curso> orderByName = (p1, p2) -> p1.getNombre().compareTo(p2.getNombre());
         Collections.sort(cursos, orderByName);
     }
     
     static void imprimirCursos() {
-        ordenar();
+        ordenarCursos();
         short count = 1;
         if (!cursos.isEmpty()) {
             for (Curso curso : cursos) {
