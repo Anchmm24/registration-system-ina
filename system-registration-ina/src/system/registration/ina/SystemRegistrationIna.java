@@ -3,6 +3,8 @@ import Models.Curso;
 import Models.Docente;
 import Models.Estudiante;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -232,34 +234,117 @@ public class SystemRegistrationIna {
         return opcion;
     }
     
-    /**
+        /**
      * Redirige a la acción seleccionada por el usuario
+     *
      * @param opc acción a realizar por el usuario
      */
-    static void gestionCursos(byte opc){
-        switch(opc){
-            case 1: 
+    static void gestionCursos(byte opc) {
+        switch (opc) {
+            case 1:
                 agregarCurso();
                 break;
-            case 2: 
+            case 2:
+                eliminarCurso();
                 break;
-            case 3: 
-                
+            case 3:
+                modificarCurso();
                 break;
-            case 4: 
+            case 4:
                 break;
-            case 5: 
             default:
-                break;                
-        }        
+                break;
+        }
     }
-    
-    static void agregarCurso(){
+
+    static void agregarCurso() {
         Curso curso = new Curso();
         byte num = 0;
         System.out.print("\n\tNombre del curso: ");
         curso.setNombre(scan.nextLine());
+
+        do {
+            System.out.print("\tCantidad máxima de estudiantes: ");
+            try {
+                num = scan.nextByte();
+                if (num == 0) {
+                    System.out.println("\n\t[ Error ] - Ingrese un número mayor a 0");
+                }
+            } catch (InputMismatchException ex) {
+                System.out.println("\n\t[ Error ] - Ingrese un número válido");
+                scan.nextLine();
+            }
+        } while (num == 0);
+
+        curso.setCupoMax(num);
+        num = 0;
+
+        do {
+            System.out.print("\tCréditos del curso: ");
+            try {
+                num = scan.nextByte();
+                if (num == 0) {
+                    System.out.println("\n\t[ Error ] - Ingrese un número mayor a 0");
+                }
+            } catch (InputMismatchException ex) {
+                System.out.println("\n\t[ Error ] - Ingrese un número válido");
+                scan.nextLine();
+            }
+        } while (num == 0);
+
+        curso.setCreditos(num);
+        num = 0;
+
+        do {
+            imprimirDocentes();
+            System.out.print("\n\tNúmero del docente que impartirá el curso: ");
+            try {
+                num = scan.nextByte();
+                if (num == 0) {
+                    System.out.println("\n\t[ Error ] - Ingrese un número mayor a 0");
+                } else if (num > docentes.size()) {
+                    System.out.println("\n\t[ Error ] - Elija un número válido");
+                    num = 0;
+                }
+            } catch (InputMismatchException ex) {
+                System.out.println("\n\t[ Error ] - Ingrese un número válido");
+                scan.nextLine();
+            }
+        } while (num == 0);
+
+        curso.setDocenteEncargado(docentes.get(num - 1));
+
+        cursos.add(curso);
+        System.out.println("\n\t[ Curso agregado con éxito ]");
+    }
+
+    static void modificarCurso() {
+        Curso curso;
+        byte num = 0;
+
+        do {
+            imprimirCursos();
+            System.out.print("\n\tNúmero del curso a modificar: ");
+            try {
+                num = scan.nextByte();
+                if (num == 0) {
+                    System.out.println("\n\t[ Error ] - Ingrese un número mayor a 0");
+                } else if (num > docentes.size()) {
+                    System.out.println("\n\t[ Error ] - Elija un número válido");
+                    num = 0;
+                }
+            } catch (InputMismatchException ex) {
+                System.out.println("\n\t[ Error ] - Ingrese un número válido");
+                scan.nextLine();
+            }
+        } while (num == 0);
         
+        curso = cursos.get(num-1);
+        cursos.remove(num-1);
+
+        System.out.print("\n\tNombre del curso: ");
+        curso.setNombre(scan.nextLine());
+
         do{
             System.out.print("\tCantidad máxima de estudiantes: ");
             try {
@@ -271,10 +356,10 @@ public class SystemRegistrationIna {
                 scan.nextLine();
             }
         }while (num == 0);
-        
+
         curso.setCupoMax(num);
         num = 0;
-        
+
         do{
             System.out.print("\tCréditos del curso: ");
             try {
@@ -286,10 +371,10 @@ public class SystemRegistrationIna {
                 scan.nextLine();
             }
         }while (num == 0);
-        
+
         curso.setCreditos(num);
         num = 0;
-        
+
         do{
             imprimirDocentes();
             System.out.print("\n\tNúmero del docente que impartirá el curso: ");
@@ -306,11 +391,50 @@ public class SystemRegistrationIna {
                 scan.nextLine();
             }
         } while(num == 0);        
-        
-        
-        
+
+        curso.setDocenteEncargado(docentes.get(num));
         cursos.add(curso);
-        System.out.println("\n\t[ Curso agregado con éxito ]");
+        System.out.println("\n\t[ Curso modificado con éxito ]");
+    }
+    
+    static void eliminarCurso(){
+        byte num = 0;
+
+        do{
+            imprimirCursos();
+            System.out.print("\n\tNúmero del curso a modificar: ");
+            try {
+                num = scan.nextByte();
+                if(num == 0)
+                    System.out.println("\n\t[ Error ] - Ingrese un número mayor a 0");
+                else if(num > docentes.size()){
+                    System.out.println("\n\t[ Error ] - Elija un número válido");
+                    num = 0;
+                }
+            } catch (InputMismatchException ex) {
+                System.out.println("\n\t[ Error ] - Ingrese un número válido");
+                scan.nextLine();
+            }
+        } while(num == 0);
+
+
+        try{
+            cursos.remove(num);
+            System.out.println("\n\tCurso eliminado con éxito");
+        }catch(Exception ex){
+            System.out.print("\n\t[ Error ] - Ha ocurrido un error, curso NO eliminado");
+        }
+    }
+
+    static void imprimirCursos(){
+        Comparator<Curso> orderByName = (p1, p2) -> p1.getNombre().compareTo(p2.getNombre());
+        Collections.sort(cursos, orderByName);
+        short count = 1;
+        if(!cursos.isEmpty()){
+            for(Curso curso: cursos){
+                System.out.print("\n\t["+(count++)+"]" + curso.toString());
+            }
+        }
     }
     
     static void gestionDocentes(byte opc2){
@@ -438,7 +562,7 @@ public class SystemRegistrationIna {
     }
     
     //Método que imprime los docentes.
-    static void ImprimirDocentes(){
+    static void imprimirDocentes(){
         System.out.println("DOCENTES REGISTRADOS");
         
         if(!docentes.isEmpty()){
