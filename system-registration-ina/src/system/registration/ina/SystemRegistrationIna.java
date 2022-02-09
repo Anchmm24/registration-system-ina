@@ -359,13 +359,13 @@ public class SystemRegistrationIna {
                 System.out.println("Apellidos:");
                 apellidos = scan.nextLine();
                 System.out.println("Cédula:");
-                validarCedula();
+                cedula = validarCedula();
                 System.out.println("Dirección:");
                 direccion = scan.nextLine();
                 System.out.println("Correo:");
                 correo = scan.nextLine();
                 System.out.println("Edad:");
-                edad = scan.nextByte(); //validar que sea una edad aceptable
+                edad = validarEdad(); 
                 System.out.println("Seleccione la materia que imparte: ");
                 newMateria = imprimirCursos();
                 cursosDocente.add(newMateria); //Se agrega la materia al arraylist local del objeto.
@@ -410,6 +410,32 @@ public class SystemRegistrationIna {
     }
     
     //Método que valida la cédula
+    static byte validarCedula(){
+        
+        boolean error = false;
+        byte edad = 0;
+        
+        do{
+            try{
+                edad = scan.nextByte(); 
+
+                if((edad < 15) || (edad > 99)){
+                    System.out.println("[ERROR] - Ingrese la cédula en formato de 10 dígitos.");
+                    error = true;
+                }
+
+            }catch(Exception e){
+                error = true;
+                System.out.println("[ERROR] - Ingrese los datos correctamente.");
+            }
+        }while(error);
+        
+        
+        
+        return edad;
+    }
+    
+    //Método que valida la edad
     static String validarCedula(){
         
         boolean error = false;
