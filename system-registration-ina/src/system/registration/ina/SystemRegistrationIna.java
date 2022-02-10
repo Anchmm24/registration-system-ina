@@ -273,7 +273,7 @@ public class SystemRegistrationIna {
         }
     }
 
-    //Método que agrega los cursos a la lista corespondiente.
+    //Método que agrega los cursos a la lista correspondiente.
     static void agregarCurso() {
         Curso curso = new Curso();
         short num = 0;
@@ -460,6 +460,7 @@ public class SystemRegistrationIna {
         Collections.sort(cursos, orderByName);
     }
 
+    //Método que imprime los cursos por nombre y de forma ascendente.
     static void imprimirCursos() {
         ordenarCursos();
         short count = 1;
@@ -913,7 +914,7 @@ public class SystemRegistrationIna {
         int num=0;
         do {
             imprimirDocentes();
-            System.out.print("\n\tNúmerDo del docente a eliminar: ");
+            System.out.print("\n\tNúmero del docente a eliminar: ");
             try {
                 num = scan.nextByte();
                 if (num == 0) {
