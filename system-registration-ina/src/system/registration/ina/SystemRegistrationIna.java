@@ -301,8 +301,9 @@ public class SystemRegistrationIna {
             System.out.print("\tCréditos del curso: ");
             try {
                 num = scan.nextByte();
-                if (num == 0) {
+                if (num < 1) {
                     System.out.println("\n\t[ Error ] - Ingrese un número mayor a 0");
+                    num = 0;
                 }
             } catch (InputMismatchException ex) {
                 System.out.println("\n\t[ Error ] - Ingrese un número válido");
@@ -347,9 +348,10 @@ public class SystemRegistrationIna {
             System.out.print("\n\tNúmero del curso a modificar: ");
             try {
                 num = scan.nextShort();
-                if (num == 0) {
+                if (num < 1) {
                     System.out.println("\n\t[ Error ] - Ingrese un número mayor a 0");
-                } else if (num > docentes.size() || num < docentes.size()) {
+                    num = 0;
+                } else if (num > cursos.size()) {
                     System.out.println("\n\t[ Error ] - Elija un número válido");
                     num = 0;
                 }
@@ -369,8 +371,9 @@ public class SystemRegistrationIna {
             System.out.print("\tCantidad máxima de estudiantes: ");
             try {
                 num = scan.nextShort();
-                if (num == 0) {
+                if (num < 1) {
                     System.out.println("\n\t[ Error ] - Ingrese un número mayor a 0");
+                    num = 0;
                 }
             } catch (InputMismatchException ex) {
                 System.out.println("\n\t[ Error ] - Ingrese un número válido");
@@ -385,8 +388,9 @@ public class SystemRegistrationIna {
             System.out.print("\tCréditos del curso: ");
             try {
                 num = scan.nextByte();
-                if (num == 0) {
+                if (num < 1) {
                     System.out.println("\n\t[ Error ] - Ingrese un número mayor a 0");
+                    num = 0;
                 }
             } catch (InputMismatchException ex) {
                 System.out.println("\n\t[ Error ] - Ingrese un número válido");
