@@ -75,4 +75,22 @@ public class Estudiante extends Persona{
         this.cursos = cursos;
     }    
     
+
+    @Override
+    public String toString(){
+        String listaCursos = "";
+        for(Curso curso: cursos){
+            listaCursos += "\n\t" +curso.getNombre();
+        }
+        return ("\n\tNombre completo: " + getNombre() + " " + getApellidos()
+            + "\n\tCédula: " + getCedula()
+            + "\n\tDirección: " + getDireccion()
+            + "\n\tCorreo: " + getCorreo()
+            + "\n\tEdad: " + getEdad()
+            + "\n\tGrado actual: " + getGradoActual()
+            + "\n\t¿Repite año?: " + isRepiteAnio()
+            + "\n\t¿Requiere beca?: " + isBeca()
+            + "\n\t¿Requiere adecuación?: " + isAdecuacion()
+            + "\n\t[Lista de cursos]" + listaCursos);
+    }
 }
