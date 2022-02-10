@@ -138,11 +138,14 @@ public class SystemRegistrationIna {
     // Método que valida la contraseña ingresada para administrador.
     static boolean validacionAdmin() {
         byte intentos = 3;
-
+        
+        System.out.println("\nIngrese la contraseña:");
+        String seguir = scan.nextLine();
+            
         do {
-            System.out.println("\nIngrese la contraseña:");
             String contraIngresada = scan.nextLine();
-            if (contraIngresada == null ? password == null : contraIngresada.equals(password)) {
+            
+            if (contraIngresada.equals(password)) {
                 return true;
             } else {
                 intentos--;
@@ -159,27 +162,30 @@ public class SystemRegistrationIna {
 
         byte opcion = 0;
         boolean error = false;
-
-        do {
-            error = false; // Se inicializa al entrar al ciclo, sino entra en loop infinito
-            System.out.print("\n\t[ GESTIONES DE ADMINISTRADOR ]"
+        
+        System.out.print("\n\t[ GESTIONES DE ADMINISTRADOR ]"
                     + "\n\t[1] - Administración cursos"
                     + "\n\t[2] - Administración profesores"
                     + "\n\t[3] - Administración estudiantes"
                     + "\n\t[4] - Cursos por docente"
                     + "\n\t[5] - Cursos por estudiante"
                     + "\n\t[6] - Salir"
-                    + "\n\n\tElija una opción: ");
+                    + "\n\n\tPresione ENTER para continuar... ");
+
+        do {
+            String seguir = scan.nextLine();
+            error = false; // Se inicializa al entrar al ciclo, sino entra en loop infinito
             try {
+                System.out.println("\n\n\tSeleccione: ");
                 opcion = scan.nextByte();
-                if ((opcion < 1) && (opcion > 6)) {
+                if ((opcion < 1) || (opcion > 6)) {
                     opcion = 0;
-                    System.out.print("\n\tIngrese una opción válida entre 1 y 6");
+                    System.out.print("\n\tIngrese una opción válida entre 1 y 6\n");
                     error = true;
                 }
             } catch (InputMismatchException ex) {
                 error = true;
-                System.out.println("\n\t[ Error ] - Ingrese un número válido");
+                System.out.println("\n\t[ Error ] - Ingrese un número válido\n");
             }
         } while (error);
 
@@ -195,19 +201,19 @@ public class SystemRegistrationIna {
         switch (opc) {
             case 1:
                 // Se redirige al menú de gestiones referentes a los cursos.
-                System.out.println("ADMINISTRACIÓN CURSOS");
+                System.out.println("\n\t[ ADMINISTRACIÓN CURSOS ]");
                 opc2 = administracionClases();
                 gestionCursos(opc2);
                 break;
             case 2:
                 // Se redirige al menú de gestiones referentes a los profesores.
-                System.out.println("ADMINISTRACIÓN PROFESORES");
+                System.out.println("\n\t[ ADMINISTRACIÓN PROFESORES ]");
                 opc2 = administracionClases();
                 gestionDocentes(opc2);
                 break;
             case 3:
                 // Se redirige al menú de gestiones referentes a los estudiantes.
-                System.out.println("ADMINISTRACIÓN ESTUDIANTES");
+                System.out.println("\n\t[ ADMINISTRACIÓN ESTUDIANTES ]");
                 opc2 = administracionClases();
                 gestionEstudiantes(opc2);
                 break;
@@ -229,17 +235,18 @@ public class SystemRegistrationIna {
     static byte administracionClases() {
         byte opcion = 0;
         boolean error = false;
-
-        do {
-            error = false; // Se inicializa al entrar al ciclo, sino entra en loop infinito
-            System.out.print("\n\t[1] - Agregar"
+        
+        System.out.print("\n\t[1] - Agregar"
                     + "\n\t[2] - Eliminar"
                     + "\n\t[3] - Editar"
-                    + "\n\t[4] - Salir"
-                    + "\n\n\tElija una opción: ");
+                    + "\n\t[4] - Salir");
+        
+        do {
+            error = false; // Se inicializa al entrar al ciclo, sino entra en loop infinito
             try {
+                System.out.println("\n\n\tSeleccione: ");
                 opcion = scan.nextByte();
-                if ((opcion < 1) && (opcion > 4)) {
+                if ((opcion < 1) || (opcion > 4)) {
                     opcion = 0;
                     System.out.print("\n\tIngrese una opción válida entre 1 y 4");
                     error = true;
@@ -721,6 +728,7 @@ public class SystemRegistrationIna {
 
             try {
                 System.out.println("Nombre:");
+                String seguir = scan.nextLine();
                 nombre = scan.nextLine();
                 System.out.println("Apellidos:");
                 apellidos = scan.nextLine();
@@ -804,6 +812,7 @@ public class SystemRegistrationIna {
         String cedula = "";
 
         do {
+            error = false;
             try {
                 cedula = scan.nextLine();
                 Integer.parseInt(cedula);
