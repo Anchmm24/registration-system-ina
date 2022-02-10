@@ -405,9 +405,10 @@ public class SystemRegistrationIna {
             imprimirDocentes();
             System.out.print("\n\tNúmero del docente que impartirá el curso: ");
             try {
-                num = scan.nextByte();
-                if (num == 0) {
+                num = scan.nextShort();
+                if (num < 1) {
                     System.out.println("\n\t[ Error ] - Ingrese un número mayor a 0");
+                    num = 0;
                 } else if (num > docentes.size()) {
                     System.out.println("\n\t[ Error ] - Elija un número válido");
                     num = 0;
@@ -425,15 +426,16 @@ public class SystemRegistrationIna {
 
     //Método que elimina un curso seleccionado.
     static void eliminarCurso() {
-        byte num = 0;
+        short num = 0;
 
         do {
             imprimirCursos();
             System.out.print("\n\tNúmero del curso a modificar: ");
             try {
-                num = scan.nextByte();
+                num = scan.nextShort();
                 if (num < 1) {
                     System.out.println("\n\t[ Error ] - Ingrese un número mayor a 0");
+                    num = 0;
                 } else if (num > cursos.size()) {
                     System.out.println("\n\t[ Error ] - Elija un número válido");
                     num = 0;
@@ -445,7 +447,7 @@ public class SystemRegistrationIna {
         } while (num == 0);
 
         try {
-            cursos.remove(num);
+            cursos.remove(num-1);
             System.out.println("\n\tCurso eliminado con éxito");
         } catch (Exception ex) {
             System.out.print("\n\t[ Error ] - Ha ocurrido un error, curso NO eliminado");
@@ -527,7 +529,7 @@ public class SystemRegistrationIna {
             System.out.print("\tGrado actual: ");
             try {
                 num = scan.nextByte();
-                if (num < 1 && num > 10) {
+                if (num < 1 || num > 10) {
                     System.out.println("\n\t[ Error ] - Ingrese un número entre 1 - 10");
                     num = 0;
                 }
@@ -558,8 +560,9 @@ public class SystemRegistrationIna {
             System.out.print("\n\tNúmero del estudiante a eliminar: ");
             try {
                 num = scan.nextShort();
-                if (num == 0) {
+                if (num < 1) {
                     System.out.println("\n\t[ Error ] - Ingrese un número mayor a 0");
+                    num = 0;
                 } else if (num > estudiantes.size()) {
                     System.out.println("\n\t[ Error ] - Elija un número válido");
                     num = 0;
@@ -571,7 +574,7 @@ public class SystemRegistrationIna {
         } while (num == 0);
 
         try {
-            cursos.remove(num);
+            cursos.remove(num-1);
             System.out.println("\n\tEstudiante eliminado con éxito");
         } catch (Exception ex) {
             System.out.print("\n\t[ Error ] - Ha ocurrido un error, estudiante NO eliminado");
@@ -585,20 +588,21 @@ public class SystemRegistrationIna {
             imprimirEstudiantes();
             System.out.print("\n\tNúmero del estudiante a modificar: ");
             try {
-                num = scan.nextShort();
-                if (num < 1) {
+                index = scan.nextShort();
+                if (index < 1) {
                     System.out.println("\n\t[ Error ] - Ingrese un número mayor a 0");
-                } else if (num > estudiantes.size()) {
+                    index = 0;
+                } else if (index > estudiantes.size()) {
                     System.out.println("\n\t[ Error ] - Elija un número válido");
-                    num = 0;
+                    index = 0;
                 }
             } catch (InputMismatchException ex) {
                 System.out.println("\n\t[ Error ] - Ingrese un número válido");
                 scan.nextLine();
             }
-        } while (num == 0);
+        } while (index == 0);
 
-        num = (short) (num - 1);
+        index = (short) (index - 1);
 
         System.out.print("\n\tNombre: ");
         estudiantes.get(index).setNombre(scan.nextLine());
