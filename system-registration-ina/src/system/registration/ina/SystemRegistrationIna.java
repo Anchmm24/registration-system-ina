@@ -96,13 +96,12 @@ public class SystemRegistrationIna {
                     + "\n\t[2] - Lista de profesores"
                     + "\n\t[3] - Lista de estudiantes"
                     + "\n\t[4] - Matrícula"
-                    + "\n\t[5] - Salir"
                     + "\n\n\tElija una opción: ");
             try {
                 opcion = scan.nextByte();
-                if ((opcion < 1) && (opcion > 5)) {
+                if ((opcion < 1) && (opcion > 4)) {
                     opcion = 0;
-                    System.out.print("\n\tIngrese una opción válida entre 1 y 5");
+                    System.out.print("\n\tIngrese una opción válida entre 1 y 4");
                     error = true;
                 }
             } catch (InputMismatchException ex) {
@@ -168,13 +167,12 @@ public class SystemRegistrationIna {
                     + "\n\t[3] - Administración estudiantes"
                     + "\n\t[4] - Cursos por docente"
                     + "\n\t[5] - Cursos por estudiante"
-                    + "\n\t[6] - Salir"
                     + "\n\n\tElija una opción: ");
             try {
                 opcion = scan.nextByte();
-                if ((opcion < 1) && (opcion > 6)) {
+                if ((opcion < 1) && (opcion > 5)) {
                     opcion = 0;
-                    System.out.print("\n\tIngrese una opción válida entre 1 y 6");
+                    System.out.print("\n\tIngrese una opción válida entre 1 y 5");
                     error = true;
                 }
             } catch (InputMismatchException ex) {
@@ -235,13 +233,12 @@ public class SystemRegistrationIna {
             System.out.print("\n\t[1] - Agregar"
                     + "\n\t[2] - Eliminar"
                     + "\n\t[3] - Editar"
-                    + "\n\t[4] - Salir"
                     + "\n\n\tElija una opción: ");
             try {
                 opcion = scan.nextByte();
-                if ((opcion < 1) && (opcion > 4)) {
+                if ((opcion < 1) && (opcion > 3)) {
                     opcion = 0;
-                    System.out.print("\n\tIngrese una opción válida entre 1 y 4");
+                    System.out.print("\n\tIngrese una opción válida entre 1 y 3");
                     error = true;
                 }
             } catch (InputMismatchException ex) {
@@ -276,7 +273,7 @@ public class SystemRegistrationIna {
         }
     }
 
-    //Método que agrega los cursos a la lista corespondiente.
+    //Método que agrega los cursos a la lista correspondiente.
     static void agregarCurso() {
         Curso curso = new Curso();
         short num = 0;
@@ -463,6 +460,7 @@ public class SystemRegistrationIna {
         Collections.sort(cursos, orderByName);
     }
 
+    //Método que imprime los cursos por nombre y de forma ascendente.
     static void imprimirCursos() {
         ordenarCursos();
         short count = 1;
@@ -916,7 +914,7 @@ public class SystemRegistrationIna {
         int num=0;
         do {
             imprimirDocentes();
-            System.out.print("\n\tNúmerDo del docente a eliminar: ");
+            System.out.print("\n\tNúmero del docente a eliminar: ");
             try {
                 num = scan.nextByte();
                 if (num == 0) {
