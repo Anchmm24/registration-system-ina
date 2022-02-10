@@ -881,14 +881,13 @@ public class SystemRegistrationIna {
                 System.out.println("Fecha de inicio en la institución: " + doc.getInicioInstitucion() + "\n");
                 // Se imprimen los cursos que imparte un profesor determinado
                 for (int i = 0; i < cursos.size(); i++) {
-                    if (cursos.get(i).getDocenteEncargado().getNombre() == null ? docentes.get(i).getNombre() == null
-                            : cursos.get(i).getDocenteEncargado().getNombre().equals(docentes.get(i).getNombre())) {
+                    if (cursos.get(i).getDocenteEncargado().getNombre().equals(docentes.get(i).getNombre())) {
                         System.out.println("\n" + cursos.get(i).getNombre());
                     }
                 }
             }
         } else {
-            System.out.println("LISTA VACÍA");
+            System.out.print("\n\t[ NO hay docentes registrados ]");
         }
     }
 
