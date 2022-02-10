@@ -127,7 +127,6 @@ public class SystemRegistrationIna {
                 break;
             case 4:
                 matricula();
-
                 break;
             default:
                 break;
@@ -185,7 +184,7 @@ public class SystemRegistrationIna {
         return opcion;
     }
 
-    // Método que contiene un switch. Se realizan acciones de acuerdo con la
+    // Se realizan acciones de acuerdo con la
     // selección del administardor.
     static void gestionesAdministrador(byte opc) {
 
@@ -208,6 +207,7 @@ public class SystemRegistrationIna {
                 // Se redirige al menú de gestiones referentes a los estudiantes.
                 System.out.println("ADMINISTRACIÓN ESTUDIANTES");
                 opc2 = administracionClases();
+                gestionEstudiantes(opc2);
                 break;
             case 4:
                 // Se muestran cursos de un docente específico
@@ -843,9 +843,16 @@ public class SystemRegistrationIna {
         return edad;
     }
 
+    //Método que ordena por apellido los docentes, de forma ascendente. 
+    static void ordenarDocentes() {
+        Comparator<Docente> orderByName = (p1, p2) -> p1.getApellidos().compareTo(p2.getApellidos());
+        Collections.sort(docentes, orderByName);
+    }
+    
     // Método que imprime los docentes.
     static void imprimirDocentes() {
         System.out.println("DOCENTES REGISTRADOS");
+        ordenarDocentes();
         int l = 0;
         if (!docentes.isEmpty()) {
             for (Docente doc : docentes) {
@@ -906,7 +913,7 @@ public class SystemRegistrationIna {
         int num=0;
         do {
             imprimirDocentes();
-            System.out.print("\n\tNúmero del docente a eliminar: ");
+            System.out.print("\n\tNúmerDo del docente a eliminar: ");
             try {
                 num = scan.nextByte();
                 if (num == 0) {
@@ -962,6 +969,7 @@ public class SystemRegistrationIna {
         }
     }
 
+    //Método que muestra los cursos por estudiante específico.
     static void buscarCursosEstudiante() {
         int num = 0;
         System.out.println("CURSOS POR ESTUDIANTE");
