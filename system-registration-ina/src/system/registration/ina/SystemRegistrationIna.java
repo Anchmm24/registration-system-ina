@@ -480,8 +480,6 @@ public class SystemRegistrationIna {
     static void agregarEstudiante() {
         Estudiante estud = new Estudiante();
         short num = 0;
-        boolean seguir;
-        List<Curso> list = new ArrayList<>();
 
         System.out.print("\n\tNombre: ");
         estud.setNombre(scan.nextLine());
@@ -536,6 +534,34 @@ public class SystemRegistrationIna {
 
         estudiantes.add(estud);
         System.out.println("\n\t[ Estudiante agregado con éxito ]");
+    }
+
+    static void eliminarEstudiante() {
+        short num = 0;
+
+        do {
+            imprimirCursos();
+            System.out.print("\n\tNúmero del estudiante a eliminar: ");
+            try {
+                num = scan.nextShort();
+                if (num == 0) {
+                    System.out.println("\n\t[ Error ] - Ingrese un número mayor a 0");
+                } else if (num > estudiantes.size()) {
+                    System.out.println("\n\t[ Error ] - Elija un número válido");
+                    num = 0;
+                }
+            } catch (InputMismatchException ex) {
+                System.out.println("\n\t[ Error ] - Ingrese un número válido");
+                scan.nextLine();
+            }
+        } while (num == 0);
+
+        try {
+            cursos.remove(num);
+            System.out.println("\n\tEstudiante eliminado con éxito");
+        } catch (Exception ex) {
+            System.out.print("\n\t[ Error ] - Ha ocurrido un error, estudiante NO eliminado");
+        }
     }
 
     static void ordenarEstudiantes(){
