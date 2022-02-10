@@ -14,8 +14,10 @@ import static jdk.nashorn.internal.objects.NativeString.toUpperCase;
 
 public class SystemRegistrationIna {
 
-    static String password = "cheeseburger09";
-    static Scanner scan = new Scanner(System.in);
+    static String password = "cheeseburger09"; //Contraseña para acceso a Administrador.
+    static Scanner scan = new Scanner(System.in); //Instancia de la clase Scanner para ingresar datos.
+    
+    //Declaración de listas a usar.
     static List<Docente> docentes = new ArrayList<>();
     static List<Curso> cursos = new ArrayList<>();
     static List<Estudiante> estudiantes = new ArrayList<>();
@@ -27,17 +29,19 @@ public class SystemRegistrationIna {
         byte tipoUsuario, opc;
 
         do {
-            tipoUsuario = menu();
+            tipoUsuario = menuGeneral();
 
             switch (tipoUsuario) {
                 case 1:
+                    //Se dirige al usuario al menú de acciones para Usuario.
                     opc = usuarioMenu();
                     gestionesUsuario(opc);
-
                     break;
                 case 2:
+                    //Se valida el ingreso a Administrador.
                     boolean entra = validacionAdmin();
                     if (entra) {
+                        //Se dirige al usuario al menú de acciones para Administrador.
                         opc = administradorMenu();
                         gestionesAdministrador(opc);
                     }
@@ -53,13 +57,13 @@ public class SystemRegistrationIna {
     }
 
     //Menú general del programa.
-    static byte menu() {
+    static byte menuGeneral() {
         byte opcion = 0;
         boolean error = false;
 
         do {
             error = false; // Se inicializa al entrar al ciclo, sino entra en loop infinito
-            System.out.print("\n\t[ Bienvenidx al sistema de matrícula ]"
+            System.out.print("\n\t[ Bienvenido (a) al sistema de matrícula ]"
                     + "\n\t[1] - Usuario"
                     + "\n\t[2] - Administrador"
                     + "\n\t[3] - Salir"
@@ -109,7 +113,7 @@ public class SystemRegistrationIna {
         return opcion;
     }
 
-    //Método que contiene un switch. Se realizan acciones de acuerdo con la selección del usuario.
+    //Se realizan acciones de acuerdo con la selección del usuario en la sección de Usuario.
     static void gestionesUsuario(byte opc) {
         switch (opc) {
             case 1:
@@ -218,6 +222,7 @@ public class SystemRegistrationIna {
         }
     }
 
+    //Método general que muestra las acciones que se pueden realizar con Cursos, Docentes y Estudiantes. Retorna la opción seleccionada por el usuario
     static byte administracionClases() {
         byte opcion = 0;
         boolean error = false;
@@ -268,6 +273,7 @@ public class SystemRegistrationIna {
         }
     }
 
+    //Método que agrega los cursos a la lista corespondiente.
     static void agregarCurso() {
         Curso curso = new Curso();
         short num = 0;
@@ -331,6 +337,7 @@ public class SystemRegistrationIna {
         System.out.println("\n\t[ Curso agregado con éxito ]");
     }
 
+    //Método que modifica un curso específico.
     static void modificarCurso() {
         Curso curso;
         short num = 0;
@@ -412,6 +419,7 @@ public class SystemRegistrationIna {
         System.out.println("\n\t[ Curso modificado con éxito ]");
     }
 
+    //Método que elimina un curso seleccionado.
     static void eliminarCurso() {
         byte num = 0;
 
@@ -440,6 +448,7 @@ public class SystemRegistrationIna {
         }
     }
 
+    //Método que ordena los cursos por nombre y de forma ascendente. 
     static void ordenarCursos(){
         Comparator<Curso> orderByName = (p1, p2) -> p1.getNombre().compareTo(p2.getNombre());
         Collections.sort(cursos, orderByName);
@@ -478,6 +487,7 @@ public class SystemRegistrationIna {
         }
     }
 
+    //Se agrega un estudiante a la lista
     static void agregarEstudiante() {
         Estudiante estud = new Estudiante();
         short num = 0;
@@ -565,6 +575,7 @@ public class SystemRegistrationIna {
         }
     }
 
+    //Se ordenan los estudiantes por nombre y de forma ascendente
     static void ordenarEstudiantes(){
         Comparator<Estudiante> orderByName = (p1, p2) -> p1.getApellidos().compareTo(p2.getApellidos());
         Collections.sort(estudiantes , orderByName);
@@ -598,6 +609,7 @@ public class SystemRegistrationIna {
         }
     }
 
+    //Método que agrega docentes a la lista correspondiente
     static Docente agregarDocente() {
         boolean error = false;
         ArrayList<Curso> cursosDocente = new ArrayList<>();
@@ -626,13 +638,13 @@ public class SystemRegistrationIna {
                 System.out.println("Apellidos:");
                 apellidos = scan.nextLine();
                 System.out.println("Cédula:");
-                validarCedula();
+                cedula = validarCedula(); //Se valida que en cédula se ingresen datos válidos
                 System.out.println("Dirección:");
                 direccion = scan.nextLine();
                 System.out.println("Correo:");
                 correo = scan.nextLine();
                 System.out.println("Edad:");
-                edad = scan.nextByte(); //validar que sea una edad aceptable
+                edad = validarEdad(); //Se valida que en edad se ingresen datos válidos
                 System.out.println("Seleccione la materia que imparte: ");
                 imprimirCursos();
                 int num=0;
@@ -674,7 +686,7 @@ public class SystemRegistrationIna {
 
         } while (error == true);
 
-        Docente newdocente = new Docente(cursosDocente, gradoAcad, colegiado, propiedad, fechaInicio);
+        Docente newdocente = new Docente(cursosDocente, gradoAcad, colegiado, propiedad, fechaInicio, nombre, apellidos, cedula, direccion, correo, edad);
 
         return newdocente;
     }
@@ -699,7 +711,7 @@ public class SystemRegistrationIna {
         return false;
     }
 
-    //Método que valida la cédula
+    //Método que valida la cédula.
     static String validarCedula() {
 
         boolean error = false;
@@ -723,6 +735,30 @@ public class SystemRegistrationIna {
         } while (error);
 
         return cedula;
+    }
+    
+    //Método que valida la edad.
+    static byte validarEdad() {
+
+        boolean error = false;
+        byte edad = 0;
+
+        do {
+            try {
+                edad = scan.nextByte();
+
+                if (edad < 0 || edad > 99) {
+                    System.out.println("[ERROR] - Ingrese datos válidos.");
+                    error = true;
+                }
+
+            } catch (Exception e) {
+                error = true;
+                System.out.println("[ERROR] - Ingrese sólo números.");
+            }
+        } while (error);
+
+        return edad;
     }
 
     //Método que imprime los docentes.
@@ -753,7 +789,7 @@ public class SystemRegistrationIna {
         }
     }
 
-    //Método que elimina un objeto docente
+    //Método que elimina un objeto docente.
     static void eliminarDocente(){
         byte num = 0;
 
@@ -782,7 +818,7 @@ public class SystemRegistrationIna {
         }
     }
 
-    //Método que modifica una serie
+    //Método que modifica un docente.
     static void modificarDocente(){
         int num=0;
         do {
@@ -815,7 +851,7 @@ public class SystemRegistrationIna {
         }
     }
 
-    //Método que muestra los cursos por docente espacífico
+    //Método que muestra los cursos por docente específico.
     static void buscarCursosDocente(){
         int num=0;
         System.out.println("CURSOS POR DOCENTE");
@@ -843,6 +879,7 @@ public class SystemRegistrationIna {
         }
     }
 
+    //Método que muestra los cursos por estudiante específico.
     static void buscarCursosEstudiante(){
         int num=0;
         System.out.println("CURSOS POR ESTUDIANTE");
