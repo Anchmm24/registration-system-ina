@@ -119,10 +119,14 @@ public class SystemRegistrationIna {
                 imprimirDocentes();
                 break;
             case 3:
-                //Se listan los estudiantes
+                imprimirEstudiantes();
                 break;
             case 4:
-            //Se realiza la matrícula
+                //Se realiza la matrícula
+                
+                break;
+            default:
+                break;
 
         }
     }
