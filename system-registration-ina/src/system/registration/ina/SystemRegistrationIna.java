@@ -119,10 +119,13 @@ public class SystemRegistrationIna {
                 imprimirDocentes();
                 break;
             case 3:
-                //Se listan los estudiantes
+                imprimirEstudiantes();
                 break;
             case 4:
-            //Se realiza la matrícula
+                matricula();
+                break;
+            default:
+                break;
 
         }
     }
@@ -489,8 +492,7 @@ public class SystemRegistrationIna {
         estud.setDireccion(scan.nextLine());        
         System.out.print("\tCorreo electrónico: ");
         estud.setCorreo(scan.nextLine());
-        
-        
+                
         do {
             System.out.print("\tEdad: ");
             try {
@@ -531,32 +533,6 @@ public class SystemRegistrationIna {
         System.out.print("\tRequiere solicitar beca? (S/N): ");
         estud.setBeca(validarSN());
 
-        System.out.print("\n\tDesea añadir cursos al estudiante? (S/N): ");
-        seguir = validarSN();
-        while (seguir) {            
-            imprimirCursos();
-            do{
-                System.out.print("\n\tNúmero del curso a añadir: ");
-                try {
-                    num = scan.nextShort();
-                    if (num < 1) {
-                        System.out.println("\n\t[ Error ] - Ingrese un número mayor a 0");
-                        num = 0;
-                    } else if (num > cursos.size()) {
-                        System.out.println("\n\t[ Error ] - Elija un número válido");
-                        num = 0;
-                    }
-                } catch (InputMismatchException ex) {
-                    System.out.println("\n\t[ Error ] - Ingrese un número válido");
-                    scan.nextLine();
-                }   
-            }while(num == 0);
-            list.add(cursos.get(num-1));
-            
-            System.out.print("\n\tDesea añadir otro curso? (S/N): ");
-            seguir = validarSN();
-        }
-        estud.setCursos(list);
         estudiantes.add(estud);
         System.out.println("\n\t[ Estudiante agregado con éxito ]");
     }
@@ -738,5 +714,57 @@ public class SystemRegistrationIna {
             System.out.println("LISTA VACÍA");
         }
     }
-    //Hola
+    
+    /**
+     * Método para realizar matrícula de estudiantes
+     */
+    static void matricula(){
+        boolean seguir = true;
+        short num = 0;
+        int index = 0;
+        List<Curso> list = new ArrayList<>();
+
+        do {
+            imprimirEstudiantes();
+            System.out.print("\n\tNúmero del estudiante a matricular: ");
+            try {
+                index = scan.nextShort();
+                if (index == 0) {
+                    System.out.println("\n\t[ Error ] - Ingrese un número mayor a 0");
+                } else if (index > estudiantes.size() || index < estudiantes.size()) {
+                    System.out.println("\n\t[ Error ] - Elija un número válido");
+                    index = 0;
+                }
+            } catch (InputMismatchException ex) {
+                System.out.println("\n\t[ Error ] - Ingrese un número válido");
+                scan.nextLine();
+            }
+        } while (index == 0);
+        index = (short) (index - 1);
+
+        while (seguir) {            
+            imprimirCursos();
+            do{
+                System.out.print("\n\tNúmero del curso a añadir: ");
+                try {
+                    num = scan.nextShort();
+                    if (num < 1) {
+                        System.out.println("\n\t[ Error ] - Ingrese un número mayor a 0");
+                        num = 0;
+                    } else if (num > cursos.size()) {
+                        System.out.println("\n\t[ Error ] - Elija un número válido");
+                        num = 0;
+                    }
+                } catch (InputMismatchException ex) {
+                    System.out.println("\n\t[ Error ] - Ingrese un número válido");
+                    scan.nextLine();
+                }   
+            }while(num == 0);
+            list.add(cursos.get(num-1));
+            
+            System.out.print("\n\tDesea añadir otro curso? (S/N): ");
+            seguir = validarSN();
+        }
+        estudiantes.get(index).setCursos(list);
+    }
 }
