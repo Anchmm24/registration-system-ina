@@ -6,6 +6,7 @@ import Models.Estudiante;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -353,7 +354,7 @@ public class SystemRegistrationIna {
                 }
             } while (num == 0);
     
-            curso.setDocenteEncargado(docentes.get(num));
+            curso.setDocenteEncargado(docentes.get(num-1));
         }else
             System.out.println("\n\t[ NO hay docentes registrados para dirigir el curso ]");
 
@@ -501,8 +502,9 @@ public class SystemRegistrationIna {
             ordenarCursos();
             short count = 1;
             for (Curso curso : cursos) {
-                System.out.print("\n\t[" + (count++) + "]" + curso.toString());
+                System.out.print("\n\t[" + (count++) + "]\n" + curso.toString());
             }
+            System.out.println("");
         }else
             System.out.print("\n\t[ NO hay cursos registrados ]");
     }
@@ -598,6 +600,7 @@ public class SystemRegistrationIna {
             do {
                 imprimirCursos();
                 System.out.print("\n\tNúmero del estudiante a eliminar: ");
+                scan.nextLine();
                 try {
                     num = scan.nextShort();
                     if (num < 1) {
@@ -620,7 +623,7 @@ public class SystemRegistrationIna {
                 System.out.print("\n\t[ Error ] - Ha ocurrido un error, estudiante NO eliminado");
             }
         }else
-            System.out.print("\n\t[ NO hay estudiantes registrados ]");
+            System.out.print("\n\t[ NO hay estudiantes registrados ]\n");
         
     }
 
@@ -632,6 +635,7 @@ public class SystemRegistrationIna {
             do {
                 imprimirEstudiantes();
                 System.out.print("\n\tNúmero del estudiante a modificar: ");
+                scan.nextLine();
                 try {
                     index = scan.nextShort();
                     if (index < 1) {
@@ -704,7 +708,7 @@ public class SystemRegistrationIna {
 
             System.out.println("\n\t[ Estudiante modificado con éxito ]");
         }else
-            System.out.print("\n\t[ NO hay estudiantes registrados ]");
+            System.out.print("\n\t[ NO hay estudiantes registrados ]\n");
 
     }
 
@@ -721,7 +725,7 @@ public class SystemRegistrationIna {
                 System.out.print("\n\t[" + (count++) + "]" + estudiante.toString());
             }
         }else
-            System.out.print("\n\t[ NO hay estudiantes registrados ]");
+            System.out.print("\n\t[ NO hay estudiantes registrados ]\n");
     }
 
     static void gestionDocentes(byte opc2) {
@@ -828,6 +832,7 @@ public class SystemRegistrationIna {
         boolean error = false;
 
         do {
+            error = false;
             String word = scan.nextLine();
             word = toUpperCase(word); // Se pasa la respuesta a mayúsculas.
             if (!"S".equals(word) && !"N".equals(word)) {
@@ -904,9 +909,14 @@ public class SystemRegistrationIna {
     static void imprimirDocentes() {
         System.out.println("DOCENTES REGISTRADOS");
         ordenarDocentes();
+        Calendar cal = Calendar.getInstance();
+        String fechaStr;
         int l = 0;
         if (!docentes.isEmpty()) {
             for (Docente doc : docentes) {
+                fechaStr = "";
+                cal.setTime(doc.getInicioInstitucion());
+                fechaStr = String.valueOf(cal.get(Calendar.DAY_OF_MONTH))+"/"+String.valueOf(cal.get(Calendar.MONTH)+"/"+String.valueOf(cal.get(Calendar.YEAR)));
                 l++;
                 System.out.println("[" + (l + 1) + "] " + "Nombre: " + doc.getNombre());
                 System.out.println("Apellidos " + doc.getApellidos());
@@ -916,7 +926,7 @@ public class SystemRegistrationIna {
                 System.out.println("Edad: " + doc.getEdad());
                 System.out.println("Colegiado: " + doc.isColegiado());
                 System.out.println("Propiedad: " + doc.isPropiedad());
-                System.out.println("Fecha de inicio en la institución: " + doc.getInicioInstitucion() + "\n");
+                System.out.println("Fecha de inicio en la institución: " + fechaStr + "\n");
                 // Se imprimen los cursos que imparte un profesor determinado
                 for (int i = 0; i < cursos.size(); i++) {
                     if (cursos.get(i).getDocenteEncargado().getNombre().equals(docentes.get(i).getNombre())) {
@@ -1096,12 +1106,13 @@ public class SystemRegistrationIna {
                 list.add(cursos.get(num - 1));
                 System.out.print("\n\t¡Curso matriculado con éxito!");
 
-                System.out.print("\n\tDesea añadir otro curso? (S/N): ");
+                scan.nextLine();
+                System.out.print("\n\tDesea matricular otro curso? (S/N): ");
                 seguir = validarSN();
             }
             estudiantes.get(index).setCursos(list);
         }else if(estudiantes.isEmpty())
-            System.out.print("\n\t[ NO hay estudiantes registrados ]");
+            System.out.print("\n\t[ NO hay estudiantes registrados ]\n");
         else if(cursos.isEmpty())
             System.out.print("\n\t[ NO hay cursos registrados ]");
     }

@@ -1,5 +1,6 @@
 package Models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,7 +30,7 @@ public class Estudiante extends Persona{
     boolean repiteAnio;
     boolean adecuacion;
     boolean beca;
-    List<Curso> cursos;
+    List<Curso> cursos = new ArrayList<>();
     
 
     public Estudiante() {
@@ -79,12 +80,13 @@ public class Estudiante extends Persona{
     @Override
     public String toString(){
         String listaCursos = "\n\t[ Lista de cursos ]";
-        if(cursos.isEmpty()){
+        if(!cursos.isEmpty()){
             for(Curso curso: cursos){
                 listaCursos += "\n\t" +curso.getNombre();
             }
+            listaCursos += "\n\t";
         }else
-            listaCursos += "\n\t[ NO hay cursos matriculados ]";
+            listaCursos += "\n\t[ NO hay cursos matriculados ]\n\t";
         
         return ("\n\tNombre completo: " + getNombre() + " " + getApellidos()
             + "\n\tCédula: " + getCedula()
