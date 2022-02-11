@@ -6,6 +6,7 @@ import Models.Estudiante;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -40,7 +41,7 @@ public class SystemRegistrationIna {
                     do{
                         opc = usuarioMenu();
                         gestionesUsuario(opc);
-                    }while (opc != 5);                    
+                    }while (opc != 5);
                     break;
                 case 2:
                     //Se valida el ingreso a Administrador.
@@ -146,13 +147,13 @@ public class SystemRegistrationIna {
     // Método que valida la contraseña ingresada para administrador.
     static boolean validacionAdmin() {
         byte intentos = 3;
-        
+
         System.out.print("\n\tIngrese la contraseña: ");
         String seguir = scan.nextLine();
-            
+
         do {
             String contraIngresada = scan.nextLine();
-            
+
             if (contraIngresada.equals(password)) {
                 return true;
             } else {
@@ -170,7 +171,7 @@ public class SystemRegistrationIna {
 
         byte opcion = 0;
         boolean error = false;
-        
+
         System.out.print("\n\t[ GESTIONES DE ADMINISTRADOR ]"
                     + "\n\t[1] - Administración cursos"
                     + "\n\t[2] - Administración profesores"
@@ -244,12 +245,12 @@ public class SystemRegistrationIna {
     static byte administracionClases() {
         byte opcion = 0;
         boolean error = false;
-        
+
         System.out.print("\n\t[1] - Agregar"
                     + "\n\t[2] - Eliminar"
                     + "\n\t[3] - Editar"
                     + "\n\t[4] - Salir");
-        
+
         do {
             error = false; // Se inicializa al entrar al ciclo, sino entra en loop infinito
             try {
@@ -352,8 +353,8 @@ public class SystemRegistrationIna {
                     scan.nextLine();
                 }
             } while (num == 0);
-    
-            curso.setDocenteEncargado(docentes.get(num));
+
+            curso.setDocenteEncargado(docentes.get(num-1));
         }else
             System.out.print("\n\t[ NO hay docentes registrados para dirigir el curso ]");
 
@@ -384,14 +385,14 @@ public class SystemRegistrationIna {
                     scan.nextLine();
                 }
             } while (num == 0);
-    
+
             curso = cursos.get(num - 1);
             cursos.remove(num - 1);
-    
+
             scan.nextLine();
             System.out.print("\n\tNombre del curso: ");
             curso.setNombre(scan.nextLine());
-    
+
             do {
                 System.out.print("\tCantidad máxima de estudiantes: ");
                 try {
@@ -405,10 +406,10 @@ public class SystemRegistrationIna {
                     scan.nextLine();
                 }
             } while (num == 0);
-    
+
             curso.setCupoMax(num);
             num = 0;
-    
+
             do {
                 System.out.print("\tCréditos del curso: ");
                 try {
@@ -422,10 +423,10 @@ public class SystemRegistrationIna {
                     scan.nextLine();
                 }
             } while (num == 0);
-    
+
             curso.setCreditos((byte) num);
             num = 0;
-    
+
             if(!docentes.isEmpty()){
                 do {
                     imprimirDocentes();
@@ -444,7 +445,7 @@ public class SystemRegistrationIna {
                         scan.nextLine();
                     }
                 } while (num == 0);
-        
+
                 curso.setDocenteEncargado(docentes.get(num));
             }else
                 System.out.print("\n\t[ NO hay docentes registrados para dirigir el curso ]");
@@ -452,7 +453,7 @@ public class SystemRegistrationIna {
             System.out.print("\n\t[ Curso modificado con éxito ]");
         }else
             System.out.print("\n\t[ NO hay cursos registrados ]");
-        
+
     }
 
     //Método que elimina un curso seleccionado.
@@ -501,8 +502,9 @@ public class SystemRegistrationIna {
             ordenarCursos();
             short count = 1;
             for (Curso curso : cursos) {
-                System.out.print("\n\t[" + (count++) + "]" + curso.toString());
+                System.out.print("\n\t[" + (count++) + "]\n" + curso.toString());
             }
+            System.out.println("");
         }else
             System.out.print("\n\t[ NO hay cursos registrados ]");
     }
@@ -598,6 +600,7 @@ public class SystemRegistrationIna {
             do {
                 imprimirCursos();
                 System.out.print("\n\tNúmero del estudiante a eliminar: ");
+                scan.nextLine();
                 try {
                     num = scan.nextShort();
                     if (num < 1) {
@@ -620,8 +623,8 @@ public class SystemRegistrationIna {
                 System.out.print("\n\t[ Error ] - Ha ocurrido un error, estudiante NO eliminado");
             }
         }else
-            System.out.print("\n\t[ NO hay estudiantes registrados ]");
-        
+            System.out.print("\n\t[ NO hay estudiantes registrados ]\n");
+
     }
 
     static void modificarEstudiante(){
@@ -632,6 +635,7 @@ public class SystemRegistrationIna {
             do {
                 imprimirEstudiantes();
                 System.out.print("\n\tNúmero del estudiante a modificar: ");
+                scan.nextLine();
                 try {
                     index = scan.nextShort();
                     if (index < 1) {
@@ -704,7 +708,7 @@ public class SystemRegistrationIna {
 
             System.out.print("\n\t[ Estudiante modificado con éxito ]");
         }else
-            System.out.print("\n\t[ NO hay estudiantes registrados ]");
+            System.out.print("\n\t[ NO hay estudiantes registrados ]\n");
 
     }
 
@@ -721,7 +725,7 @@ public class SystemRegistrationIna {
                 System.out.print("\n\t[" + (count++) + "]" + estudiante.toString());
             }
         }else
-            System.out.print("\n\t[ NO hay estudiantes registrados ]");
+            System.out.print("\n\t[ NO hay estudiantes registrados ]\n");
     }
 
     static void gestionDocentes(byte opc2) {
@@ -782,7 +786,7 @@ public class SystemRegistrationIna {
                 System.out.print("\tSeleccione la materia que imparte: ");
                 imprimirCursos();
                 int num = 0;
-                
+
                 if(!cursos.isEmpty()){
                     do {
                         try {
@@ -800,14 +804,14 @@ public class SystemRegistrationIna {
                         }
 
                     } while (num == 0);
-                    
-                    newMateria = cursos.get(num - 1); 
+
+                    newMateria = cursos.get(num - 1);
                     cursosDocente.add(newMateria); // Se agrega la materia al arraylist local del objeto.
-                    
+
                 }else{
                     System.out.print("\n\t[ NO hay docentes registrados ]\n");
                 }
-                
+
                 scan.nextLine();
                 System.out.print("\tGrado académico: ");
                 gradoAcad = scan.nextLine();
@@ -817,7 +821,7 @@ public class SystemRegistrationIna {
                 propiedad = validarSN();
                 System.out.print("\tFecha de inicio en la institución (DD/MM/YYYY)");
                 fechaInicio = validarFecha();
-               
+
             } catch (Exception e) {
                 System.out.print("\n\t[ Error ] - ingrese datos válidos. \n");
                 error = true;
@@ -827,7 +831,7 @@ public class SystemRegistrationIna {
 
         Docente newdocente = new Docente(cursosDocente, gradoAcad, colegiado, propiedad, fechaInicio, nombre, apellidos, cedula, direccion, correo, edad);
         System.out.print("\n\t[ Cambios realizados con éxito ]\n");
-        
+
         return newdocente;
     }
 
@@ -904,19 +908,24 @@ public class SystemRegistrationIna {
         return edad;
     }
 
-    //Método que ordena por apellido los docentes, de forma ascendente. 
+    //Método que ordena por apellido los docentes, de forma ascendente.
     static void ordenarDocentes() {
         Comparator<Docente> orderByName = (p1, p2) -> p1.getApellidos().compareTo(p2.getApellidos());
         Collections.sort(docentes, orderByName);
     }
-    
+
     // Método que imprime los docentes.
     static void imprimirDocentes() {
         System.out.print("\n\t[ DOCENTES REGISTRADOS ]");
         ordenarDocentes();
+        Calendar cal = Calendar.getInstance();
+        String fechaStr;
         int l = 0;
         if (!docentes.isEmpty()) {
             for (Docente doc : docentes) {
+                fechaStr = "";
+                cal.setTime(doc.getInicioInstitucion());
+                fechaStr = String.valueOf(cal.get(Calendar.DAY_OF_MONTH))+"/"+String.valueOf(cal.get(Calendar.MONTH)+"/"+String.valueOf(cal.get(Calendar.YEAR)));
                 l++;
                 System.out.print("\n\t[" + (l) + "]\n");
                 System.out.print("\tNombre: " + doc.getNombre() + "\n");
@@ -927,7 +936,7 @@ public class SystemRegistrationIna {
                 System.out.print("\tEdad: " + doc.getEdad()+ "\n");
                 System.out.print("\tColegiado: " + doc.isColegiado()+ "\n");
                 System.out.print("\tPropiedad: " + doc.isPropiedad()+ "\n");
-                System.out.print("\tFecha de inicio en la institución: " + doc.getInicioInstitucion() + "\n");
+                System.out.println("Fecha de inicio en la institución: " + fechaStr + "\n");
                 // Se imprimen los cursos que imparte un profesor determinado
                 for (int i = 0; i < cursos.size(); i++) {
                     if (cursos.get(i).getDocenteEncargado().getNombre().equals(docentes.get(i).getNombre())) {
@@ -943,7 +952,7 @@ public class SystemRegistrationIna {
     //Método que elimina un objeto docente.
     static void eliminarDocente(){
         byte num = 0;
-        
+
         if(!docentes.isEmpty()){
             do {
                 imprimirDocentes();
@@ -971,7 +980,7 @@ public class SystemRegistrationIna {
         }else{
             System.out.print("\n\t[ NO hay docentes registrados ]\n");
         }
-        
+
     }
 
     //Método que modifica un docente.
@@ -1008,7 +1017,7 @@ public class SystemRegistrationIna {
         }else{
             System.out.print("\n\t[ NO hay docentes registrados ]\n");
         }
-        
+
     }
 
     //Método que muestra los cursos por docente específico.
@@ -1117,12 +1126,13 @@ public class SystemRegistrationIna {
                 list.add(cursos.get(num - 1));
                 System.out.print("\n\t¡Curso matriculado con éxito!");
 
-                System.out.print("\n\tDesea añadir otro curso? (S/N): ");
+                scan.nextLine();
+                System.out.print("\n\tDesea matricular otro curso? (S/N): ");
                 seguir = validarSN();
             }
             estudiantes.get(index).setCursos(list);
         }else if(estudiantes.isEmpty())
-            System.out.print("\n\t[ NO hay estudiantes registrados ]");
+            System.out.print("\n\t[ NO hay estudiantes registrados ]\n");
         else if(cursos.isEmpty())
             System.out.print("\n\t[ NO hay cursos registrados ]");
     }
