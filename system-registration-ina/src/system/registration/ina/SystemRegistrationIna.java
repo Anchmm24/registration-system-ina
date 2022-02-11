@@ -87,6 +87,7 @@ public class SystemRegistrationIna {
             } catch (InputMismatchException ex) {
                 error = true;
                 System.out.print("\n\t[ Error ] - Ingrese un número válido");
+                scan.nextLine();
             }
         } while (error);
 
@@ -117,6 +118,7 @@ public class SystemRegistrationIna {
             } catch (InputMismatchException ex) {
                 error = true;
                 System.out.print("\n\t[ Error ] - Ingrese un número válido");
+                scan.nextLine();
             }
         } while (error);
 
@@ -195,6 +197,7 @@ public class SystemRegistrationIna {
             } catch (InputMismatchException ex) {
                 error = true;
                 System.out.print("\n\t[ Error ] - Ingrese un número válido\n");
+                scan.nextLine();
             }
         } while (error);
 
@@ -264,6 +267,7 @@ public class SystemRegistrationIna {
             } catch (InputMismatchException ex) {
                 error = true;
                 System.out.print("\n\t[ Error ] - Ingrese un número válido");
+                scan.nextLine();
             }
         } while (error);
 
@@ -359,7 +363,7 @@ public class SystemRegistrationIna {
             System.out.print("\n\t[ NO hay docentes registrados para dirigir el curso ]");
 
         cursos.add(curso);
-        System.out.print("\n\t[ Curso agregado con éxito ]");
+        System.out.print("\n\t[ Cambios realizados con éxito ]\n");
     }
 
     //Método que modifica un curso específico.
@@ -446,13 +450,13 @@ public class SystemRegistrationIna {
                     }
                 } while (num == 0);
 
-                curso.setDocenteEncargado(docentes.get(num));
+                curso.setDocenteEncargado(docentes.get(num-1));
             }else
                 System.out.print("\n\t[ NO hay docentes registrados para dirigir el curso ]");
             cursos.add(curso);
-            System.out.print("\n\t[ Curso modificado con éxito ]");
+            System.out.print("\n\t[ Cambios realizados con éxito ]\n");
         }else
-            System.out.print("\n\t[ NO hay cursos registrados ]");
+            System.out.print("\n\t[ NO hay cursos registrados ]\n\n");
 
     }
 
@@ -463,7 +467,7 @@ public class SystemRegistrationIna {
         if(!cursos.isEmpty()){
             do {
                 imprimirCursos();
-                System.out.print("\n\tNúmero del curso a modificar: ");
+                System.out.print("\n\tNúmero del curso a eliminar: ");
                 try {
                     num = scan.nextShort();
                     if (num < 1) {
@@ -481,7 +485,7 @@ public class SystemRegistrationIna {
 
             try {
                 cursos.remove(num-1);
-                System.out.print("\n\tCurso eliminado con éxito");
+                System.out.print("\n\t[ Cambios realizados con éxito ]\n");
             } catch (Exception ex) {
                 System.out.print("\n\t[ Error ] - Ha ocurrido un error, curso NO eliminado");
             }
@@ -532,7 +536,7 @@ public class SystemRegistrationIna {
         }
     }
 
-    //Se agrega un estudiante a la lista
+    //Método que agrega los estudiantes a la lista correspondiente.
     static void agregarEstudiante() {
         Estudiante estud = new Estudiante();
         short num = 0;
@@ -590,9 +594,10 @@ public class SystemRegistrationIna {
         estud.setBeca(validarSN());
 
         estudiantes.add(estud);
-        System.out.print("\n\t[ Estudiante agregado con éxito ]");
+        System.out.print("\n\t[ Cambios realizados con éxito ]\n");
     }
 
+    //Método que elimina un estudiante específico.
     static void eliminarEstudiante() {
         short num = 0;
 
@@ -618,7 +623,7 @@ public class SystemRegistrationIna {
 
             try {
                 cursos.remove(num-1);
-                System.out.print("\n\tEstudiante eliminado con éxito");
+                System.out.print("\n\t[ Cambios realizados con éxito ]\n");
             } catch (Exception ex) {
                 System.out.print("\n\t[ Error ] - Ha ocurrido un error, estudiante NO eliminado");
             }
@@ -627,6 +632,7 @@ public class SystemRegistrationIna {
 
     }
 
+    //Método que modifica un estudiante seleccionado.
     static void modificarEstudiante(){
         short num = 0;
         short index = 0;
@@ -712,11 +718,13 @@ public class SystemRegistrationIna {
 
     }
 
+    //Método que ordena los estudiantes por nombre en orden ascendente.
     static void ordenarEstudiantes() {
         Comparator<Estudiante> orderByName = (p1, p2) -> p1.getApellidos().compareTo(p2.getApellidos());
         Collections.sort(estudiantes, orderByName);
     }
 
+    //Método que imprime los estudiantes por nombre en orden ascendente.
     static void imprimirEstudiantes() {
         ordenarEstudiantes();
         short count = 1;
@@ -1137,6 +1145,7 @@ public class SystemRegistrationIna {
             System.out.print("\n\t[ NO hay cursos registrados ]");
     }
 
+    //Método que solicita y valida una fecha al usuario.
     static Date validarFecha(){
         Date date = null;
         String linea;
