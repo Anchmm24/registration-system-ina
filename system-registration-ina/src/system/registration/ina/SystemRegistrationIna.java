@@ -158,7 +158,7 @@ public class SystemRegistrationIna {
                 return true;
             } else {
                 intentos--;
-                System.out.print("\n\t CONTRASEÑA INCORRECTA. Intentos restantes: " + intentos);
+                System.out.print("\n\t CONTRASEÑA INCORRECTA. Intentos restantes: " + intentos + " \n");
             }
         } while (intentos != 0);
 
@@ -792,15 +792,15 @@ public class SystemRegistrationIna {
                         try {
                             num = scan.nextInt();
                             if (num == 0) {
-                                System.out.print("\n\t[Error] - Ingrese datos válidos");
+                                System.out.print("\n\t[Error 1] - Ingrese datos válidos");
                             } else {
-                                if (num < cursos.size()) {
-                                    System.out.print("\n\t[Error] - Ingrese datos válidos");
+                                if ((num-1) > cursos.size()) {
+                                    System.out.print("\n\t[Error 2] - Ingrese datos válidos");
                                     num = 0;
                                 }
                             }
                         } catch (InputMismatchException e) {
-                            System.out.print("\n\t[Error] - Ingrese datos válidos");
+                            System.out.print("\n\t[Error 3] - Ingrese datos válidos");
                         }
 
                     } while (num == 0);
@@ -936,17 +936,19 @@ public class SystemRegistrationIna {
                 System.out.print("\tEdad: " + doc.getEdad()+ "\n");
                 System.out.print("\tColegiado: " + doc.isColegiado()+ "\n");
                 System.out.print("\tPropiedad: " + doc.isPropiedad()+ "\n");
-                System.out.println("Fecha de inicio en la institución: " + fechaStr + "\n");
+                System.out.println("\tFecha de inicio en la institución: " + fechaStr + "\n");
                 // Se imprimen los cursos que imparte un profesor determinado
-                for (int i = 0; i < cursos.size(); i++) {
-                    if (cursos.get(i).getDocenteEncargado().getNombre().equals(docentes.get(i).getNombre())) {
-                        System.out.print("\n" + cursos.get(i).getNombre());
+                if(!doc.getMateriasImparte().isEmpty()){
+                    System.out.print("\tMATERIAS QUE IMPARTE\n");
+                    for (int i = 0; i < doc.getMateriasImparte().size(); i++) {
+                        System.out.print("\t" + doc.getMateriasImparte().get(i).getNombre() + "\n");
                     }
+                }else{
+                    System.out.print("\n\tDocente no asignado a ninguna materia\n");
                 }
+                
             }
-        } else {
-            System.out.print("\n\t[ NO hay docentes registrados ]\n");
-        }
+        } 
     }
 
     //Método que elimina un objeto docente.
@@ -989,7 +991,7 @@ public class SystemRegistrationIna {
         if(!docentes.isEmpty()){
             do {
                 imprimirDocentes();
-                System.out.print("\n\tNúmero del docente a eliminar: ");
+                System.out.print("\n\tNúmero del docente a modificar: ");
                 try {
                     num = scan.nextByte();
                     if (num == 0) {
@@ -1010,7 +1012,6 @@ public class SystemRegistrationIna {
             try {
                 docentes.remove(num-1);
                 docentes.add(num-1, doc);
-                System.out.print("\n\tDocente modificado con éxito\n");
             } catch (Exception ex) {
                 System.out.print("\n\t[ Error ] - Ha ocurrido un error, docente NO modificado\n");
             }
@@ -1023,28 +1024,27 @@ public class SystemRegistrationIna {
     //Método que muestra los cursos por docente específico.
     static void buscarCursosDocente(){
         int num=0;
-        System.out.print("CURSOS POR DOCENTE");
+        System.out.print("\n\tCURSOS POR DOCENTE");
         do {
             imprimirDocentes();
             System.out.print("\n\tNúmero del docente a consultar: ");
             try {
                 num = scan.nextByte();
                 if (num == 0) {
-                    System.out.print("\n\t[ Error ] - Ingrese un número mayor a 0");
+                    System.out.print("\n\t[ Error 1] - Ingrese un número mayor a 0");
                 } else if (num > docentes.size()) {
-                    System.out.print("\n\t[ Error ] - Elija un número válido");
+                    System.out.print("\n\t[ Error 2] - Elija un número válido");
                     num = 0;
                 }
             } catch (InputMismatchException ex) {
-                System.out.print("\n\t[ Error ] - Ingrese un número válido");
+                System.out.print("\n\t[ Error 3] - Ingrese un número válido");
                 scan.nextLine();
             }
         } while (num == 0);
 
         for (int i = 0; i < cursos.size(); i++) {
-            if (cursos.get(i).getDocenteEncargado().getNombre() == null ? docentes.get(num).getNombre() == null
-                    : cursos.get(i).getDocenteEncargado().getNombre().equals(docentes.get(num).getNombre())) {
-                System.out.print("Curso: " + cursos.get(i).getNombre() + "\n");
+            if (cursos.get(i).getDocenteEncargado().getNombre().equals(docentes.get(num-1).getNombre())) {
+                System.out.print("\tCurso: " + cursos.get(i).getNombre() + "\n");
             }
         }
     }
@@ -1060,7 +1060,7 @@ public class SystemRegistrationIna {
                 num = scan.nextByte();
                 if (num == 0) {
                     System.out.print("\n\t[ Error ] - Ingrese un número mayor a 0");
-                } else if (num > estudiantes.size()) {
+                } else if ((num-1) > estudiantes.size()) {
                     System.out.print("\n\t[ Error ] - Elija un número válido");
                     num = 0;
                 }
@@ -1070,8 +1070,8 @@ public class SystemRegistrationIna {
             }
         } while (num == 0);
 
-        for (int i = 0; i < estudiantes.get(num + 1).getCursos().size(); i++) {
-            System.out.print("Curso: " + estudiantes.get(num + 1).getCursos().get(i).getNombre() + "\n");
+        for (int i = 0; i < estudiantes.get(num - 1).getCursos().size(); i++) {
+            System.out.print("Curso: " + estudiantes.get(num - 1).getCursos().get(i).getNombre() + "\n");
         }
 
     }
