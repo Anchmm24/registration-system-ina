@@ -17,10 +17,10 @@ import static jdk.nashorn.internal.objects.NativeString.toUpperCase;
 
 public class SystemRegistrationIna {
 
-    static String password = "cheeseburger09"; //Contraseña para acceso a Administrador.
-    static Scanner scan = new Scanner(System.in); //Instancia de la clase Scanner para ingresar datos.
+    static String password = "cheeseburger09"; // Contraseña para acceso a Administrador.
+    static Scanner scan = new Scanner(System.in); // Instancia de la clase Scanner para ingresar datos.
 
-    //Declaración de listas a usar.
+    // Declaración de listas a usar.
     static List<Docente> docentes = new ArrayList<>();
     static List<Curso> cursos = new ArrayList<>();
     static List<Estudiante> estudiantes = new ArrayList<>();
@@ -36,21 +36,21 @@ public class SystemRegistrationIna {
 
             switch (tipoUsuario) {
                 case 1:
-                    //Se dirige al usuario al menú de acciones para Usuario.
-                    do{
+                    // Se dirige al usuario al menú de acciones para Usuario.
+                    do {
                         opc = usuarioMenu();
                         gestionesUsuario(opc);
-                    }while (opc != 5);
+                    } while (opc != 5);
                     break;
                 case 2:
-                    //Se valida el ingreso a Administrador.
+                    // Se valida el ingreso a Administrador.
                     boolean entra = validacionAdmin();
                     if (entra) {
-                        //Se dirige al usuario al menú de acciones para Administrador.
-                        do{
+                        // Se dirige al usuario al menú de acciones para Administrador.
+                        do {
                             opc = administradorMenu();
                             gestionesAdministrador(opc);
-                        }while (opc !=6 ) ;
+                        } while (opc != 6);
                     }
                     break;
                 case 3:
@@ -64,7 +64,7 @@ public class SystemRegistrationIna {
         } while (tipoUsuario == 1 || tipoUsuario == 2);
     }
 
-    //Menú general del programa.
+    // Menú general del programa.
     static byte menuGeneral() {
         byte opcion = 0;
         boolean error = false;
@@ -124,7 +124,8 @@ public class SystemRegistrationIna {
         return opcion;
     }
 
-    //Se realizan acciones de acuerdo con la selección del usuario en la sección de Usuario.
+    // Se realizan acciones de acuerdo con la selección del usuario en la sección de
+    // Usuario.
     static void gestionesUsuario(byte opc) {
         switch (opc) {
             case 1:
@@ -174,13 +175,13 @@ public class SystemRegistrationIna {
         boolean error = false;
 
         System.out.print("\n\t[ GESTIONES DE ADMINISTRADOR ]"
-                    + "\n\t[1] - Administración cursos"
-                    + "\n\t[2] - Administración profesores"
-                    + "\n\t[3] - Administración estudiantes"
-                    + "\n\t[4] - Cursos por docente"
-                    + "\n\t[5] - Cursos por estudiante"
-                    + "\n\t[6] - Salir"
-                    + "\n\n\tPresione ENTER para continuar... ");
+                + "\n\t[1] - Administración cursos"
+                + "\n\t[2] - Administración profesores"
+                + "\n\t[3] - Administración estudiantes"
+                + "\n\t[4] - Cursos por docente"
+                + "\n\t[5] - Cursos por estudiante"
+                + "\n\t[6] - Salir"
+                + "\n\n\tPresione ENTER para continuar... ");
 
         do {
             String seguir = scan.nextLine();
@@ -243,15 +244,16 @@ public class SystemRegistrationIna {
         }
     }
 
-    //Método general que muestra las acciones que se pueden realizar con Cursos, Docentes y Estudiantes. Retorna la opción seleccionada por el usuario
+    // Método general que muestra las acciones que se pueden realizar con Cursos,
+    // Docentes y Estudiantes. Retorna la opción seleccionada por el usuario
     static byte administracionClases() {
         byte opcion = 0;
         boolean error = false;
 
         System.out.print("\n\t[1] - Agregar"
-                    + "\n\t[2] - Eliminar"
-                    + "\n\t[3] - Editar"
-                    + "\n\t[4] - Salir");
+                + "\n\t[2] - Eliminar"
+                + "\n\t[3] - Editar"
+                + "\n\t[4] - Salir");
 
         do {
             error = false; // Se inicializa al entrar al ciclo, sino entra en loop infinito
@@ -296,7 +298,7 @@ public class SystemRegistrationIna {
         }
     }
 
-    //Método que agrega los cursos a la lista correspondiente.
+    // Método que agrega los cursos a la lista correspondiente.
     static void agregarCurso() {
         Curso curso = new Curso();
         short num = 0;
@@ -338,7 +340,7 @@ public class SystemRegistrationIna {
         curso.setCreditos((byte) num);
         num = 0;
 
-        if(!docentes.isEmpty()){
+        if (!docentes.isEmpty()) {
             do {
                 imprimirDocentes();
                 System.out.print("\n\tNúmero del docente que impartirá el curso: ");
@@ -357,20 +359,20 @@ public class SystemRegistrationIna {
                 }
             } while (num == 0);
 
-            curso.setDocenteEncargado(docentes.get(num-1));
-        }else
+            curso.setDocenteEncargado(docentes.get(num - 1));
+        } else
             System.out.print("\n\t[ NO hay docentes registrados para dirigir el curso ]");
 
         cursos.add(curso);
         System.out.print("\n\t[ Cambios realizados con éxito ]\n");
     }
 
-    //Método que modifica un curso específico.
+    // Método que modifica un curso específico.
     static void modificarCurso() {
         Curso curso;
         short num = 0;
 
-        if(!cursos.isEmpty()){
+        if (!cursos.isEmpty()) {
             do {
                 imprimirCursos();
                 System.out.print("\n\tNúmero del curso a modificar: ");
@@ -430,7 +432,7 @@ public class SystemRegistrationIna {
             curso.setCreditos((byte) num);
             num = 0;
 
-            if(!docentes.isEmpty()){
+            if (!docentes.isEmpty()) {
                 do {
                     imprimirDocentes();
                     System.out.print("\n\tNúmero del docente que impartirá el curso: ");
@@ -449,21 +451,21 @@ public class SystemRegistrationIna {
                     }
                 } while (num == 0);
 
-                curso.setDocenteEncargado(docentes.get(num-1));
-            }else
+                curso.setDocenteEncargado(docentes.get(num - 1));
+            } else
                 System.out.print("\n\t[ NO hay docentes registrados para dirigir el curso ]");
             cursos.add(curso);
             System.out.print("\n\t[ Cambios realizados con éxito ]\n");
-        }else
+        } else
             System.out.print("\n\t[ NO hay cursos registrados ]\n\n");
 
     }
 
-    //Método que elimina un curso seleccionado.
+    // Método que elimina un curso seleccionado.
     static void eliminarCurso() {
         short num = 0;
 
-        if(!cursos.isEmpty()){
+        if (!cursos.isEmpty()) {
             do {
                 imprimirCursos();
                 System.out.print("\n\tNúmero del curso a eliminar: ");
@@ -483,23 +485,23 @@ public class SystemRegistrationIna {
             } while (num == 0);
 
             try {
-                cursos.remove(num-1);
+                cursos.remove(num - 1);
                 System.out.print("\n\t[ Cambios realizados con éxito ]\n");
             } catch (Exception ex) {
                 System.out.print("\n\t[ Error ] - Ha ocurrido un error, curso NO eliminado");
             }
-        }else{
+        } else {
             System.out.print("\n\t[ NO hay cursos registrados ]");
         }
     }
 
-    //Método que ordena los cursos por nombre y de forma ascendente.
-    static void ordenarCursos(){
+    // Método que ordena los cursos por nombre y de forma ascendente.
+    static void ordenarCursos() {
         Comparator<Curso> orderByName = (p1, p2) -> p1.getNombre().compareTo(p2.getNombre());
         Collections.sort(cursos, orderByName);
     }
 
-    //Método que imprime los cursos por nombre y de forma ascendente.
+    // Método que imprime los cursos por nombre y de forma ascendente.
     static void imprimirCursos() {
         if (!cursos.isEmpty()) {
             ordenarCursos();
@@ -508,7 +510,7 @@ public class SystemRegistrationIna {
                 System.out.print("\n\t[" + (count++) + "]\n" + curso.toString());
             }
             System.out.println("");
-        }else
+        } else
             System.out.print("\n\t[ NO hay cursos registrados ]");
     }
 
@@ -535,7 +537,7 @@ public class SystemRegistrationIna {
         }
     }
 
-    //Método que agrega los estudiantes a la lista correspondiente.
+    // Método que agrega los estudiantes a la lista correspondiente.
     static void agregarEstudiante() {
         Estudiante estud = new Estudiante();
         short num = 0;
@@ -596,11 +598,11 @@ public class SystemRegistrationIna {
         System.out.print("\n\t[ Cambios realizados con éxito ]\n");
     }
 
-    //Método que elimina un estudiante específico.
+    // Método que elimina un estudiante específico.
     static void eliminarEstudiante() {
         short num = 0;
 
-        if(!estudiantes.isEmpty()){
+        if (!estudiantes.isEmpty()) {
             do {
                 imprimirCursos();
                 System.out.print("\n\tNúmero del estudiante a eliminar: ");
@@ -621,22 +623,22 @@ public class SystemRegistrationIna {
             } while (num == 0);
 
             try {
-                cursos.remove(num-1);
+                cursos.remove(num - 1);
                 System.out.print("\n\t[ Cambios realizados con éxito ]\n");
             } catch (Exception ex) {
                 System.out.print("\n\t[ Error ] - Ha ocurrido un error, estudiante NO eliminado");
             }
-        }else
+        } else
             System.out.print("\n\t[ NO hay estudiantes registrados ]\n");
 
     }
 
-    //Método que modifica un estudiante seleccionado.
-    static void modificarEstudiante(){
+    // Método que modifica un estudiante seleccionado.
+    static void modificarEstudiante() {
         short num = 0;
         short index = 0;
 
-        if(!estudiantes.isEmpty()){
+        if (!estudiantes.isEmpty()) {
             do {
                 imprimirEstudiantes();
                 System.out.print("\n\tNúmero del estudiante a modificar: ");
@@ -712,18 +714,18 @@ public class SystemRegistrationIna {
             estudiantes.get(index).setBeca(validarSN());
 
             System.out.print("\n\t[ Estudiante modificado con éxito ]");
-        }else
+        } else
             System.out.print("\n\t[ NO hay estudiantes registrados ]\n");
 
     }
 
-    //Método que ordena los estudiantes por nombre en orden ascendente.
+    // Método que ordena los estudiantes por nombre en orden ascendente.
     static void ordenarEstudiantes() {
         Comparator<Estudiante> orderByName = (p1, p2) -> p1.getApellidos().compareTo(p2.getApellidos());
         Collections.sort(estudiantes, orderByName);
     }
 
-    //Método que imprime los estudiantes por nombre en orden ascendente.
+    // Método que imprime los estudiantes por nombre en orden ascendente.
     static void imprimirEstudiantes() {
         ordenarEstudiantes();
         short count = 1;
@@ -731,7 +733,7 @@ public class SystemRegistrationIna {
             for (Estudiante estudiante : estudiantes) {
                 System.out.print("\n\t[" + (count++) + "]" + estudiante.toString());
             }
-        }else
+        } else
             System.out.print("\n\t[ NO hay estudiantes registrados ]\n");
     }
 
@@ -753,7 +755,7 @@ public class SystemRegistrationIna {
         }
     }
 
-    //Método que agrega docentes a la lista correspondiente
+    // Método que agrega docentes a la lista correspondiente
     static Docente agregarDocente() {
         boolean error = false;
         ArrayList<Curso> cursosDocente = new ArrayList<>();
@@ -783,25 +785,25 @@ public class SystemRegistrationIna {
                 System.out.print("\tApellidos:");
                 apellidos = scan.nextLine();
                 System.out.print("\tCédula:");
-                cedula = validarCedula(); //Se valida que en cédula se ingresen datos válidos
+                cedula = validarCedula(); // Se valida que en cédula se ingresen datos válidos
                 System.out.print("\tDirección:");
                 direccion = scan.nextLine();
                 System.out.print("\tCorreo:");
                 correo = scan.nextLine();
                 System.out.print("\tEdad:");
-                edad = validarEdad(); //Se valida que en edad se ingresen datos válidos
+                edad = validarEdad(); // Se valida que en edad se ingresen datos válidos
                 System.out.print("\tSeleccione la materia que imparte: ");
                 imprimirCursos();
                 int num = 0;
 
-                if(!cursos.isEmpty()){
+                if (!cursos.isEmpty()) {
                     do {
                         try {
                             num = scan.nextInt();
                             if (num == 0) {
                                 System.out.print("\n\t[Error 1] - Ingrese datos válidos");
                             } else {
-                                if ((num-1) > cursos.size()) {
+                                if ((num - 1) > cursos.size()) {
                                     System.out.print("\n\t[Error 2] - Ingrese datos válidos");
                                     num = 0;
                                 }
@@ -815,7 +817,7 @@ public class SystemRegistrationIna {
                     newMateria = cursos.get(num - 1);
                     cursosDocente.add(newMateria); // Se agrega la materia al arraylist local del objeto.
 
-                }else{
+                } else {
                     System.out.print("\n\t[ NO hay docentes registrados ]\n");
                 }
 
@@ -836,7 +838,8 @@ public class SystemRegistrationIna {
 
         } while (error == true);
 
-        Docente newdocente = new Docente(cursosDocente, gradoAcad, colegiado, propiedad, fechaInicio, nombre, apellidos, cedula, direccion, correo, edad);
+        Docente newdocente = new Docente(cursosDocente, gradoAcad, colegiado, propiedad, fechaInicio, nombre, apellidos,
+                cedula, direccion, correo, edad);
         System.out.print("\n\t[ Cambios realizados con éxito ]\n");
 
         return newdocente;
@@ -847,7 +850,7 @@ public class SystemRegistrationIna {
         boolean error = false;
 
         do {
-            error=false;
+            error = false;
             String word = scan.nextLine();
             word = toUpperCase(word); // Se pasa la respuesta a mayúsculas.
             if (!"S".equals(word) && !"N".equals(word)) {
@@ -863,13 +866,13 @@ public class SystemRegistrationIna {
         return false;
     }
 
-    //Método que valida la cédula.
+    // Método que valida la cédula.
     static String validarCedula() {
 
         boolean error = false;
         String cedula = "";
 
-        do{
+        do {
             error = false;
             do {
                 error = false;
@@ -879,35 +882,39 @@ public class SystemRegistrationIna {
                     int digitos = cedula.length();
 
                     if (digitos != 10) {
-                        System.out.print("[ERROR] - Ingrese la cédula en formato de 10 dígitos.\n");
+                        System.out.print("\t[ERROR] - Ingrese la cédula en formato de 10 dígitos.\n");
                         error = true;
                     }
 
                 } catch (Exception e) {
                     error = true;
-                    System.out.print("[ERROR] - Ingrese solo 10 números.\n");
+                    System.out.print("\t[ERROR] - Ingrese solo 10 números.\n");
                 }
             } while (error);
-            for(Docente doc: docentes){
-                if(doc.getCedula().equals(cedula))
+            for (Docente doc : docentes) {
+                if (doc.getCedula().equals(cedula)){
+                    System.out.print("\t[ERROR] - La cédula ya se encuentra en el sistema, ingrese una cédula única.\n");
                     error = true;
+                }
             }
-            for(Estudiante est: estudiantes){
-                if(est.getCedula().equals(cedula))
+            for (Estudiante est : estudiantes) {
+                if (est.getCedula().equals(cedula)){
+                    System.out.print("\t[ERROR] - La cédula ya se encuentra en el sistema, ingrese una cédula única.\n");
                     error = true;
+                }
             }
-        } while(error);
+        } while (error);
         return cedula;
     }
 
-    //Método que valida la edad.
+    // Método que valida la edad.
     static byte validarEdad() {
 
         boolean error = false;
         byte edad = 0;
 
         do {
-            error=false;
+            error = false;
             try {
                 edad = scan.nextByte();
 
@@ -926,7 +933,7 @@ public class SystemRegistrationIna {
         return edad;
     }
 
-    //Método que ordena por apellido los docentes, de forma ascendente.
+    // Método que ordena por apellido los docentes, de forma ascendente.
     static void ordenarDocentes() {
         Comparator<Docente> orderByName = (p1, p2) -> p1.getApellidos().compareTo(p2.getApellidos());
         Collections.sort(docentes, orderByName);
@@ -943,37 +950,38 @@ public class SystemRegistrationIna {
             for (Docente doc : docentes) {
                 fechaStr = "";
                 cal.setTime(doc.getInicioInstitucion());
-                fechaStr = String.valueOf(cal.get(Calendar.DAY_OF_MONTH))+"/"+String.valueOf(cal.get(Calendar.MONTH)+"/"+String.valueOf(cal.get(Calendar.YEAR)));
+                fechaStr = String.valueOf(cal.get(Calendar.DAY_OF_MONTH)) + "/"
+                        + String.valueOf(cal.get(Calendar.MONTH) + "/" + String.valueOf(cal.get(Calendar.YEAR)));
                 l++;
                 System.out.print("\n\t[" + (l) + "]\n");
                 System.out.print("\tNombre: " + doc.getNombre() + "\n");
-                System.out.print("\tApellidos " + doc.getApellidos()+ "\n");
-                System.out.print("\tCédula " + doc.getCedula()+ "\n");
-                System.out.print("\tDirección " + doc.getDireccion()+ "\n");
-                System.out.print("\tCorreo: " + doc.getCorreo()+ "\n");
-                System.out.print("\tEdad: " + doc.getEdad()+ "\n");
-                System.out.print("\tColegiado: " + doc.isColegiado()+ "\n");
-                System.out.print("\tPropiedad: " + doc.isPropiedad()+ "\n");
+                System.out.print("\tApellidos " + doc.getApellidos() + "\n");
+                System.out.print("\tCédula " + doc.getCedula() + "\n");
+                System.out.print("\tDirección " + doc.getDireccion() + "\n");
+                System.out.print("\tCorreo: " + doc.getCorreo() + "\n");
+                System.out.print("\tEdad: " + doc.getEdad() + "\n");
+                System.out.print("\tColegiado: " + doc.isColegiado() + "\n");
+                System.out.print("\tPropiedad: " + doc.isPropiedad() + "\n");
                 System.out.println("\tFecha de inicio en la institución: " + fechaStr + "\n");
                 // Se imprimen los cursos que imparte un profesor determinado
-                if(!doc.getMateriasImparte().isEmpty()){
+                if (!doc.getMateriasImparte().isEmpty()) {
                     System.out.print("\tMATERIAS QUE IMPARTE\n");
                     for (int i = 0; i < doc.getMateriasImparte().size(); i++) {
                         System.out.print("\t" + doc.getMateriasImparte().get(i).getNombre() + "\n");
                     }
-                }else{
+                } else {
                     System.out.print("\n\tDocente no asignado a ninguna materia\n");
                 }
-                
+
             }
-        } 
+        }
     }
 
-    //Método que elimina un objeto docente.
-    static void eliminarDocente(){
+    // Método que elimina un objeto docente.
+    static void eliminarDocente() {
         byte num = 0;
 
-        if(!docentes.isEmpty()){
+        if (!docentes.isEmpty()) {
             do {
                 imprimirDocentes();
                 System.out.print("\n\tNúmero del docente a eliminar: ");
@@ -981,7 +989,7 @@ public class SystemRegistrationIna {
                     num = scan.nextByte();
                     if (num == 0) {
                         System.out.print("\n\t[ Error ] - Ingrese un número mayor a 0\n");
-                    } else if ((num-1) > docentes.size()) {
+                    } else if ((num - 1) > docentes.size()) {
                         System.out.print("\n\t[ Error ] - Elija un número válido\n");
                         num = 0;
                     }
@@ -992,21 +1000,21 @@ public class SystemRegistrationIna {
             } while (num == 0);
 
             try {
-                docentes.remove(num-1);
+                docentes.remove(num - 1);
                 System.out.print("\n\tDocente eliminado con éxito\n");
             } catch (Exception ex) {
                 System.out.print("\n\t[ Error ] - Ha ocurrido un error, docente NO eliminado");
             }
-        }else{
+        } else {
             System.out.print("\n\t[ NO hay docentes registrados ]\n");
         }
 
     }
 
-    //Método que modifica un docente.
-    static void modificarDocente(){
-        int num=0;
-        if(!docentes.isEmpty()){
+    // Método que modifica un docente.
+    static void modificarDocente() {
+        int num = 0;
+        if (!docentes.isEmpty()) {
             do {
                 imprimirDocentes();
                 System.out.print("\n\tNúmero del docente a modificar: ");
@@ -1014,7 +1022,7 @@ public class SystemRegistrationIna {
                     num = scan.nextByte();
                     if (num == 0) {
                         System.out.print("\n\t[ Error ] - Ingrese un número mayor a 0\n");
-                    } else if ((num-1) > docentes.size()) {
+                    } else if ((num - 1) > docentes.size()) {
                         System.out.print("\n\t[ Error ] - Elija un número válido\n");
                         num = 0;
                     }
@@ -1028,20 +1036,20 @@ public class SystemRegistrationIna {
             doc = agregarDocente();
 
             try {
-                docentes.remove(num-1);
-                docentes.add(num-1, doc);
+                docentes.remove(num - 1);
+                docentes.add(num - 1, doc);
             } catch (Exception ex) {
                 System.out.print("\n\t[ Error ] - Ha ocurrido un error, docente NO modificado\n");
             }
-        }else{
+        } else {
             System.out.print("\n\t[ NO hay docentes registrados ]\n");
         }
 
     }
 
-    //Método que muestra los cursos por docente específico.
-    static void buscarCursosDocente(){
-        int num=0;
+    // Método que muestra los cursos por docente específico.
+    static void buscarCursosDocente() {
+        int num = 0;
         System.out.print("\n\tCURSOS POR DOCENTE");
         do {
             imprimirDocentes();
@@ -1060,12 +1068,12 @@ public class SystemRegistrationIna {
             }
         } while (num == 0);
 
-        for (int i = 0; i < docentes.get(num-1).getMateriasImparte().size(); i++) {
-            System.out.print("\n\t Curso: " + docentes.get(num-1).getMateriasImparte().get(i).getNombre()+ "\n");
+        for (int i = 0; i < docentes.get(num - 1).getMateriasImparte().size(); i++) {
+            System.out.print("\n\t Curso: " + docentes.get(num - 1).getMateriasImparte().get(i).getNombre() + "\n");
         }
     }
 
-    //Método que muestra los cursos por estudiante específico.
+    // Método que muestra los cursos por estudiante específico.
     static void buscarCursosEstudiante() {
         int num = 0;
         System.out.print("CURSOS POR ESTUDIANTE");
@@ -1076,7 +1084,7 @@ public class SystemRegistrationIna {
                 num = scan.nextByte();
                 if (num == 0) {
                     System.out.print("\n\t[ Error ] - Ingrese un número mayor a 0");
-                } else if ((num-1) > estudiantes.size()) {
+                } else if ((num - 1) > estudiantes.size()) {
                     System.out.print("\n\t[ Error ] - Elija un número válido");
                     num = 0;
                 }
@@ -1101,7 +1109,7 @@ public class SystemRegistrationIna {
         int index = 0;
         List<Curso> list = new ArrayList<>();
 
-        if(!estudiantes.isEmpty() && !cursos.isEmpty()){
+        if (!estudiantes.isEmpty() && !cursos.isEmpty()) {
             do {
                 imprimirEstudiantes();
                 System.out.print("\n\tNúmero del estudiante a matricular: ");
@@ -1147,14 +1155,14 @@ public class SystemRegistrationIna {
                 seguir = validarSN();
             }
             estudiantes.get(index).setCursos(list);
-        }else if(estudiantes.isEmpty())
+        } else if (estudiantes.isEmpty())
             System.out.print("\n\t[ NO hay estudiantes registrados ]\n");
-        else if(cursos.isEmpty())
+        else if (cursos.isEmpty())
             System.out.print("\n\t[ NO hay cursos registrados ]");
     }
 
-    //Método que solicita y valida una fecha al usuario.
-    static Date validarFecha(){
+    // Método que solicita y valida una fecha al usuario.
+    static Date validarFecha() {
         Date date = null;
         String linea;
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy", new Locale("ES"));
