@@ -1051,7 +1051,7 @@ public class SystemRegistrationIna {
         } while (num == 0);
 
         for (int i = 0; i < docentes.get(num-1).getMateriasImparte().size(); i++) {
-            System.out.print("\n\t Curso: " + docentes.get(num-1).getMateriasImparte().get(i).getNombre());
+            System.out.print("\n\t Curso: " + docentes.get(num-1).getMateriasImparte().get(i).getNombre()+ "\n");
         }
     }
 
