@@ -78,10 +78,14 @@ public class Estudiante extends Persona{
 
     @Override
     public String toString(){
-        String listaCursos = "";
-        for(Curso curso: cursos){
-            listaCursos += "\n\t" +curso.getNombre();
-        }
+        String listaCursos = "\n\t[ Lista de cursos ]";
+        if(cursos.isEmpty()){
+            for(Curso curso: cursos){
+                listaCursos += "\n\t" +curso.getNombre();
+            }
+        }else
+            listaCursos += "\n\t[ NO hay cursos matriculados ]";
+        
         return ("\n\tNombre completo: " + getNombre() + " " + getApellidos()
             + "\n\tCédula: " + getCedula()
             + "\n\tDirección: " + getDireccion()
@@ -91,6 +95,6 @@ public class Estudiante extends Persona{
             + "\n\t¿Repite año?: " + isRepiteAnio()
             + "\n\t¿Requiere beca?: " + isBeca()
             + "\n\t¿Requiere adecuación?: " + isAdecuacion()
-            + "\n\t[Lista de cursos]" + listaCursos);
+            + listaCursos);
     }
 }
