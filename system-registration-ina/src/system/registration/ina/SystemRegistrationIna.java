@@ -3,7 +3,6 @@ package system.registration.ina;
 import Models.Curso;
 import Models.Docente;
 import Models.Estudiante;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -870,24 +869,34 @@ public class SystemRegistrationIna {
         boolean error = false;
         String cedula = "";
 
-        do {
+        do{
             error = false;
-            try {
-                cedula = scan.nextLine();
-                Integer.parseInt(cedula);
-                int digitos = cedula.length();
+            do {
+                error = false;
+                try {
+                    cedula = scan.nextLine();
+                    Integer.parseInt(cedula);
+                    int digitos = cedula.length();
 
-                if (digitos != 10) {
-                    System.out.print("[ERROR] - Ingrese la cédula en formato de 10 dígitos.\n");
+                    if (digitos != 10) {
+                        System.out.print("[ERROR] - Ingrese la cédula en formato de 10 dígitos.\n");
+                        error = true;
+                    }
+
+                } catch (Exception e) {
                     error = true;
+                    System.out.print("[ERROR] - Ingrese solo 10 números.\n");
                 }
-
-            } catch (Exception e) {
-                error = true;
-                System.out.print("[ERROR] - Ingrese solo 10 números.\n");
+            } while (error);
+            for(Docente doc: docentes){
+                if(doc.getCedula().equals(cedula))
+                    error = true;
             }
-        } while (error);
-
+            for(Estudiante est: estudiantes){
+                if(est.getCedula().equals(cedula))
+                    error = true;
+            }
+        } while(error);
         return cedula;
     }
 
@@ -910,6 +919,7 @@ public class SystemRegistrationIna {
             } catch (Exception e) {
                 error = true;
                 System.out.print("[ERROR] - Ingrese sólo números.");
+                scan.nextLine();
             }
         } while (error);
 
