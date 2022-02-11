@@ -1050,10 +1050,8 @@ public class SystemRegistrationIna {
             }
         } while (num == 0);
 
-        for (int i = 0; i < cursos.size(); i++) {
-            if (cursos.get(i).getDocenteEncargado().getNombre().equals(docentes.get(num-1).getNombre())) {
-                System.out.print("\tCurso: " + cursos.get(i).getNombre() + "\n");
-            }
+        for (int i = 0; i < docentes.get(num-1).getMateriasImparte().size(); i++) {
+            System.out.print("\n\t Curso: " + docentes.get(num-1).getMateriasImparte().get(i).getNombre());
         }
     }
 
@@ -1079,7 +1077,7 @@ public class SystemRegistrationIna {
         } while (num == 0);
 
         for (int i = 0; i < estudiantes.get(num - 1).getCursos().size(); i++) {
-            System.out.print("Curso: " + estudiantes.get(num - 1).getCursos().get(i).getNombre() + "\n");
+            System.out.print("\tCurso: " + estudiantes.get(num - 1).getCursos().get(i).getNombre() + "\n");
         }
 
     }
